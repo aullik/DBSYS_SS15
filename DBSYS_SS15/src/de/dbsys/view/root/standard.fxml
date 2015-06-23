@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<SplitPane dividerPositions="0.4" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
+   <items>
+      <AnchorPane>
+         <children>
+            <TextField layoutX="39.0" layoutY="64.0" promptText="E - Mail" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="30.0" />
+            <PasswordField layoutX="10.0" layoutY="87.0" promptText="Passwort" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="90.0" />
+            <Label layoutX="25.0" layoutY="36.0" text="E - Mail" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
+            <Label layoutX="13.0" layoutY="64.0" text="Passwort" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="70.0" />
+            <Button defaultButton="true" layoutX="40.0" layoutY="163.0" mnemonicParsing="false" text="Login" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="130.0" />
+            <Button layoutX="31.0" layoutY="249.0" mnemonicParsing="false" text="Neuen Nutzer Registrieren" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" />
+         </children>
+      </AnchorPane>
+      <AnchorPane>
+         <children>
+            <Button defaultButton="true" layoutX="174.0" layoutY="398.0" mnemonicParsing="false" prefWidth="380.0" text="Wohnung suchen!" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" />
+            <DatePicker layoutX="119.0" layoutY="44.0" prefWidth="150.0" promptText="von" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="45.0" />
+            <DatePicker layoutX="269.0" layoutY="44.0" prefWidth="150.0" promptText="bis" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="45.0" />
+            <ComboBox layoutX="146.0" layoutY="195.0" prefWidth="150.0" promptText="Anz.  Zimmer" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="125.0" />
+            <ComboBox editable="true" layoutX="17.0" layoutY="368.0" prefWidth="150.0" promptText="Land" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="125.0" />
+            <TextField alignment="CENTER_RIGHT" layoutX="29.0" layoutY="137.0" prefWidth="150.0" promptText="von" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="85.0" />
+            <TextField alignment="CENTER_RIGHT" layoutX="171.0" layoutY="137.0" prefWidth="150.0" promptText="bis" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="85.0" />
+            <Label layoutX="16.0" layoutY="119.0" text="Preis" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="82.0" />
+            <ListView layoutX="276.0" layoutY="198.0" prefWidth="380.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="210.0" />
+            <Label layoutX="16.0" layoutY="14.0" text="Ferienwohnung suchen" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="15.0" layoutY="48.0" text="Reisezeit" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="47.0" />
+            <Label layoutX="20.0" layoutY="129.0" text="Land und &#10;Zimmer" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="120.0" />
+            <Label layoutX="325.0" layoutY="171.0" text="Wohnungsausstattungen&#10;hinzufügen" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="160.0" />
+            <ComboBox editable="true" layoutX="250.0" layoutY="167.0" prefWidth="240.0" promptText="Ausstattung" AnchorPane.leftAnchor="160.0" AnchorPane.topAnchor="165.0" />
+         </children></AnchorPane>
+   </items>
+</SplitPane>
