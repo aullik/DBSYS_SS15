@@ -14,6 +14,12 @@ public final class Backend {
 
    private Backend() {
       Security.addProvider(new BouncyCastleProvider());
+      // Treiber laden
+      try {
+         DriverManager.registerDriver(new oracle.jdbc.OracleDriver());
+      } catch (SQLException e) {
+         throw new RuntimeException(e);
+      }
       test();
    }
 
