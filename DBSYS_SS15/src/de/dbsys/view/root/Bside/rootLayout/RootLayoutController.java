@@ -1,4 +1,4 @@
-package de.dbsys.view.root.rootLayout;
+package de.dbsys.view.root.Bside.rootLayout;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -12,7 +12,7 @@ import javafx.scene.control.SplitPane.Divider;
 import javafx.scene.layout.BorderPane;
 import de.dbsys.backend.Backend;
 import de.dbsys.view.MVCLoader;
-import de.dbsys.view.root.loginLayout.LoginLayoutLoader;
+import de.dbsys.view.root.Aside.loginLayout.LoginLayoutLoader;
 import de.dbsys.view.root.searchLayout.SearchLayoutLoader;
 
 
