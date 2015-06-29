@@ -1,4 +1,4 @@
-package de.dbsys.view.root.searchLayout;
+package de.dbsys.view.root.Aside.searchLayout;
 
 import de.dbsys.view.MVCLoader;
 
