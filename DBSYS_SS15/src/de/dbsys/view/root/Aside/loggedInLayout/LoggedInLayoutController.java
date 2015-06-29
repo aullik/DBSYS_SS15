@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 
 import de.dbsys.model.SideContainer;
 import de.dbsys.view.root.Aside.loginLayout.LoginLayoutLoader;
+import de.dbsys.view.root.Bside.bookingConfirmation.BookingConfirmationLoader;
 import de.dbsys.view.root.Bside.dataAdministration.DataAdministrationLoader;
 import de.dbsys.view.root.Bside.searchLayout.SearchLayoutLoader;
 import javafx.event.ActionEvent;
@@ -28,7 +29,7 @@ public class LoggedInLayoutController implements Initializable {
 
    @FXML
       void handleBooking(final ActionEvent event) {
-
+      container.setSideBLoader(new BookingConfirmationLoader());
    }
 
    @FXML

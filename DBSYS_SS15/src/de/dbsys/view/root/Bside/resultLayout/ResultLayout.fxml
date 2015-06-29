@@ -6,18 +6,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.40">
 <children>
-	<Button cancelButton="true" layoutX="174.0" layoutY="398.0"
-		mnemonicParsing="false" prefWidth="380.0" text="Zurück zur Suche"
-		AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="10.0" />
-	<ListView layoutX="10.0" layoutY="197.0" prefWidth="380.0"
-		AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="10.0"
-		AnchorPane.topAnchor="197.0" />
-	<TextArea layoutX="10.0" prefHeight="150.0" prefWidth="380.0"
-		promptText="Wohnungsdetails" AnchorPane.leftAnchor="10.0"
-		AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+	<Button cancelButton="true" layoutX="174.0" layoutY="398.0" mnemonicParsing="false" onAction="#handleBackToSearch" prefWidth="380.0" text="Zurück zur Suche" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="10.0" />
+	<ListView fx:id="gefundeneWohnungLV" layoutX="10.0" layoutY="197.0" prefWidth="380.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="197.0" />
+	<TextArea fx:id="wohnungDetailTA" layoutX="10.0" prefHeight="150.0" prefWidth="380.0" promptText="Wohnungsdetails" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
 	<Label layoutX="20.0" layoutY="174.0" text="Gefundene Wohnungen:" />
 </children>
 </AnchorPane>
-
