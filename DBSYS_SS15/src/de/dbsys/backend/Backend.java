@@ -44,8 +44,8 @@ public final class Backend {
    private Connection getConnection(final boolean rek) {
       try {
          if (con == null || con.isClosed())
-            con = DriverManager.getConnection("jdbc:oracle:thin:@" + dbHost + ":" + dbPort + "/"
-                  + dbName, dbUser, dbPass);
+            con = DriverManager.getConnection(
+                  "jdbc:oracle:thin:@" + dbHost + ":" + dbPort + "/" + dbName, dbUser, dbPass);
          return con;
       } catch (SQLException t) {
          if (rek) {
@@ -95,7 +95,7 @@ public final class Backend {
          ResultSet res = s.executeQuery(statement);
          resultConsumer.accept(res);
          System.out.println("Executed Query: " + statement);
-      }, statement);
+      } , statement);
 
       // execute Statement throws RuntimeException if container is empty
 
@@ -105,12 +105,11 @@ public final class Backend {
       executeStatement((s) -> {
          s.execute(statement);
          System.out.println("Executed Query: " + statement);
-      }, statement);
+      } , statement);
    }
 
-   private void
-   executeStatement(final SQLConsumer<Statement> executor, final String statementString)
-         throws RuntimeException {
+   private void executeStatement(final SQLConsumer<Statement> executor,
+         final String statementString) throws RuntimeException {
       try {
          Statement s = createStatement();
          executor.accept(s);
@@ -129,5 +128,17 @@ public final class Backend {
          res.next();
          System.out.println(res.getString(1));
       });
+   }
+
+   public enum LoginType {
+      Failed,
+      User,
+      Manager;
+   }
+
+   public LoginType login(final String email, final String pw) {
+      // TODO Auto-generated method stub
+      return LoginType.User;
+
    }
 }
