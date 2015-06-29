@@ -3,28 +3,20 @@ package de.dbsys.view.root.rootLayout;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
+import de.dbsys.backend.Backend;
+import de.dbsys.model.SideContainer;
+import de.dbsys.view.root.Aside.searchLayout.SearchLayoutLoader;
+import de.dbsys.view.root.Bside.loginLayout.LoginLayoutLoader;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.SplitPane.Divider;
 import javafx.scene.layout.BorderPane;
-import de.dbsys.backend.Backend;
-import de.dbsys.view.MVCLoader;
-import de.dbsys.view.root.Aside.searchLayout.SearchLayoutLoader;
-import de.dbsys.view.root.Bside.loginLayout.LoginLayoutLoader;
 
 
 public class RootLayoutController implements Initializable {
 
-   private final ObjectProperty<MVCLoader> childA;
-   private final ObjectProperty<MVCLoader> childB;
-
-   public RootLayoutController() {
-      this.childA = new SimpleObjectProperty<>();
-      this.childB = new SimpleObjectProperty<>();
-   }
+   public RootLayoutController() {}
 
    @FXML
    private SplitPane root;
@@ -41,12 +33,14 @@ public class RootLayoutController implements Initializable {
          double pos = div.getPosition();
          div.positionProperty().addListener(obs -> div.positionProperty().set(pos));
       }
+      SideContainer container = SideContainer.get();
+      container.SideALoaderProperty()
+            .addListener(ign -> parentA.setCenter(container.getSideALoader().getView()));
+      container.SideBLoaderProperty()
+            .addListener(ign -> parentB.setCenter(container.getSideBLoader().getView()));
 
-      childA.addListener(ign -> parentA.setCenter(childA.get().getView()));
-      childB.addListener(ign -> parentB.setCenter(childB.get().getView()));
-
-      childA.set(new LoginLayoutLoader());
-      childB.set(new SearchLayoutLoader());
+      container.setSideALoader(new LoginLayoutLoader());
+      container.setSideBLoader(new SearchLayoutLoader());
 
 //      Backend.get(); // FIXME REMOVE
 
