@@ -14,6 +14,7 @@ import java.util.Optional;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
+import de.dbsys.model.Adresse;
 import de.dbsys.model.Ausstattung;
 import de.dbsys.model.Kunde;
 import de.dbsys.model.Land;
@@ -60,7 +61,7 @@ public final class Backend {
    }
 
    private final PreparedStatement testname = createPreparedStatement(
-         "Select * from Kunde where email = ? and passwort = ?");
+         "Select * from Kunde where mailadresse = ? and passwort = ?");
 
    private PreparedStatement createPreparedStatement(final String sql) {
       try {
@@ -151,11 +152,32 @@ public final class Backend {
    }
 
    public Optional<Kunde> createNewUser(final Kunde newKunde) {
-      try{
+      try {
+         insertAdresse(newKunde.getAdresse());
+         getConnection();
          Statement stm = createStatement();
          StringBuilder sb = new StringBuilder();
          sb.append("INSERT INTO kunde VALUES (");
-         sb.append("'")
+         sb.append(Integer.toString(newKunde.getKundenId()) + ", ");
+         sb.append("'" + newKunde.getBIC() + "', ");
+         sb.append("'" + newKunde.getIBAN() + "', ");
+         sb.append("'" + newKunde.getEmail() + "', ");
+         sb.append("'" + newKunde.getVorname() + "', ");
+         sb.append("'" + newKunde.getNachname() + "', ");
+         sb.append("'" + newKunde.getPassword() + "', ");
+         sb.append(Integer.toString(newKunde.getAdresse().getAdressId()) + ")");
+
+         String myInsertQuery = sb.toString();
+
+         stm.executeQuery(myInsertQuery);
+         stm.close();
+         con.commit();
+         con.close();
+
+      } catch (SQLException e) {
+         System.err.println("Exception while creating a new User");
+         handleSQLException(e);
+         throw new RuntimeException(e);
       }
       return Optional.ofNullable(newKunde);
    }
@@ -184,12 +206,39 @@ public final class Backend {
    // Methode zum Erstellen von Kundenobjekten aus einem ResultSet
    public Kunde createKunde(final ResultSet set) {
       try {
+         // TODO: JOIN mit adresse einfügen + Adresse auslesen
+
          Kunde kd = new Kunde(set.getString("vorname"), set.getString("nachname"),
-               set.getString("email"), set.getString("passwort"), set.getString("IBAN"),
+               set.getString("mailadresse"), set.getString("passwort"), set.getString("IBAN"),
                set.getString("bic"), null);
          return kd;
       } catch (SQLException e) {
          System.err.println("Exception while creating 'kunde' from ResultSet");
+         handleSQLException(e);
+         throw new RuntimeException(e);
+      }
+   }
+
+   // Methode für den Insert einer Adresse
+   public void insertAdresse(final Adresse adr) {
+      try {
+         getConnection();
+         Statement stm = createStatement();
+         StringBuilder sb = new StringBuilder();
+         sb.append("INSERT INTO Adresse VALUES (");
+         sb.append(Integer.toString(adr.getAdressId()) + ", ");
+         sb.append(Integer.toString(adr.getLand().getLandesId()) + ", ");
+         sb.append("'" + adr.getPLZ() + "', ");
+         sb.append("'" + adr.getStrasze() + ", ");
+         sb.append("'" + adr.getHausnummer() + ", ");
+
+         String myInsertQuery = sb.toString();
+         stm.executeQuery(myInsertQuery);
+         stm.close();
+         con.commit();
+         con.close();
+      } catch (SQLException e) {
+         System.err.println("Exception while inserting new adress");
          handleSQLException(e);
          throw new RuntimeException(e);
       }

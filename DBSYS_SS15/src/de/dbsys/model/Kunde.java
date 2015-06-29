@@ -27,4 +27,68 @@ public class Kunde {
       adresse = kundenAdresse;
    }
 
+   public int getKundenId() {
+      return KundenId;
+   }
+
+   public String getBIC() {
+      return BIC;
+   }
+
+   public String getIBAN() {
+      return IBAN;
+   }
+
+   public String getEmail() {
+      return email;
+   }
+
+   public String getVorname() {
+      return vorname;
+   }
+
+   public String getNachname() {
+      return nachname;
+   }
+
+   public String getPassword() {
+      return password;
+   }
+
+   public Adresse getAdresse() {
+      return adresse;
+   }
+
+   public void setKundenId(final int kundenId) {
+      KundenId = kundenId;
+   }
+
+   public void setBIC(final String bIC) {
+      BIC = bIC;
+   }
+
+   public void setIBAN(final String iBAN) {
+      IBAN = iBAN;
+   }
+
+   public void setEmail(final String email) {
+      this.email = email;
+   }
+
+   public void setVorname(final String vorname) {
+      this.vorname = vorname;
+   }
+
+   public void setNachname(final String nachname) {
+      this.nachname = nachname;
+   }
+
+   public void setPassword(final String password) {
+      this.password = password;
+   }
+
+   public void setAdresse(final Adresse adresse) {
+      this.adresse = adresse;
+   }
+
 }
