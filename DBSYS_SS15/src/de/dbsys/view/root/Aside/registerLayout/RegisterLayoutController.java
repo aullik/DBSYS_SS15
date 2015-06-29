@@ -25,10 +25,10 @@ public class RegisterLayoutController implements Initializable {
    private TextField nameTF;
 
    @FXML
-   private TextField emailRegisterTF;
+   private TextField emailTF;
 
    @FXML
-   private TextField passwortRegisterTF;
+   private TextField passwortTF;
 
    @FXML
    private TextField ibanTF;
@@ -43,7 +43,7 @@ public class RegisterLayoutController implements Initializable {
    private TextField hausNrTF;
 
    @FXML
-   private ComboBox<Land> landTF;
+   private ComboBox<Land> landCB;
 
    @FXML
    private TextField plzTF;
@@ -61,14 +61,14 @@ public class RegisterLayoutController implements Initializable {
    @FXML
       void handleRegisterNewFinish(final ActionEvent event) {
 
-      String vorname = nameTF.getText();
-      String nachname = nachnameTF.getText();
-      String email = emailRegisterTF.getText();
-      String pw = emailRegisterTF.getText();
-      String iban = ibanTF.getText();
-      String strasze = straszeTF.getText();
-      String plz = plzTF.getText();
-      Land land = landTF.getValue();
+      String vorname = nameTF.getText().trim();
+      String nachname = nachnameTF.getText().trim();
+      String email = emailTF.getText().trim();
+      String pw = emailTF.getText().trim();
+      String iban = ibanTF.getText().trim();
+      String strasze = straszeTF.getText().trim();
+      String plz = plzTF.getText().trim();
+      Land land = landCB.getValue();
 
       if (vorname.isEmpty() || nachname.isEmpty() || email.isEmpty() || pw.isEmpty()
             || iban.isEmpty() || strasze.isEmpty() || plz.isEmpty() || land == null) {
