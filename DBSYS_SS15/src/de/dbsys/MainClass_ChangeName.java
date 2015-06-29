@@ -15,7 +15,6 @@ public class MainClass_ChangeName extends Application {
    public void start(final Stage primaryStage) throws Exception {
       primaryStage.setTitle("DBSYS Buchungssoftware");
       new RootLayoutLoader().showIn(primaryStage);
-      primaryStage.show();
 
    }
 }

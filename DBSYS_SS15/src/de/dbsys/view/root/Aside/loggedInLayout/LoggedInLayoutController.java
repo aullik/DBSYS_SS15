@@ -3,6 +3,7 @@ package de.dbsys.view.root.Aside.loggedInLayout;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import de.dbsys.model.Kunde;
 import de.dbsys.model.SideContainer;
 import de.dbsys.view.root.Aside.loginLayout.LoginLayoutLoader;
 import de.dbsys.view.root.Bside.bookingConfirmation.BookingConfirmationLoader;
@@ -21,6 +22,12 @@ public class LoggedInLayoutController implements Initializable {
    private TextField bewertungTF;
 
    private SideContainer container;
+
+   private final Kunde kunde;
+
+   public LoggedInLayoutController(final Kunde kunde) {
+      this.kunde = kunde;
+   }
 
    @Override
    public void initialize(final URL location, final ResourceBundle resources) {

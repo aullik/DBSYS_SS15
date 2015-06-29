@@ -9,13 +9,14 @@ import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+import de.dbsys.util.LazyInitialisingFinal;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import de.dbsys.util.LazyInitialisingFinal;
 
 
 public abstract class AbstractMVCLoader {
@@ -112,8 +113,8 @@ public abstract class AbstractMVCLoader {
    private void setFactory(final FXMLLoader loader) {
       final Initializable init = controllerInstance();
       if (init == null)
-         throw new NullPointerException("No controller instance returned in:\n"
-               + getClass().getCanonicalName());
+         throw new NullPointerException(
+               "No controller instance returned in:\n" + getClass().getCanonicalName());
       loader.setController(init);
    }
 
@@ -132,8 +133,8 @@ public abstract class AbstractMVCLoader {
       toReturn = clazz.getResource(getFXMLSimpleName() + POSTFIX_FXML);
       if (toReturn != null)
          return toReturn;
-      throw new Error(new FileNotFoundException("No FXML File found representing: "
-            + clazz.getSimpleName()));
+      throw new Error(
+            new FileNotFoundException("No FXML File found representing: " + clazz.getSimpleName()));
    }
 
    void addCSSIfAvailable(final Parent parent) {
@@ -213,11 +214,18 @@ public abstract class AbstractMVCLoader {
 
    protected void setViewinStage(final Stage stage) {
 
-      stage.setScene(new Scene(getView()));
-      stage.setMinHeight(getView().minHeight(0));
-      stage.setMinWidth(getView().minWidth(0));
-      stage.setMaxHeight(getView().maxHeight(0));
-      stage.setMaxWidth(getView().maxWidth(0));
+      Scene scene = new Scene(getView());
+      stage.setScene(scene);
+
+      Platform.runLater(() -> {
+         double widthDiff = stage.getWidth() - scene.getWidth();
+         double heightDiff = stage.getHeight() - scene.getHeight();
+
+         stage.setMinHeight(getView().minHeight(0) + heightDiff);
+         stage.setMinWidth(getView().minWidth(0) + widthDiff);
+         stage.setMaxHeight(getView().maxHeight(0) + heightDiff);
+         stage.setMaxWidth(getView().maxWidth(0) + widthDiff);
+      });
    }
 
    @SuppressWarnings("unchecked")

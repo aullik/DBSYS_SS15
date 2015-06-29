@@ -6,8 +6,11 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Optional;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
+
+import de.dbsys.model.Kunde;
 
 
 public final class Backend {
@@ -130,15 +133,14 @@ public final class Backend {
       });
    }
 
-   public enum LoginType {
-      Failed,
-      User,
-      Manager;
+   public Optional<Kunde> login(final String email, final String pw) {
+      // TODO Auto-generated method stub
+      return Optional.of(new Kunde());
+
    }
 
-   public LoginType login(final String email, final String pw) {
+   public Optional<Kunde> createNewUser(final Kunde newKunde) {
       // TODO Auto-generated method stub
-      return LoginType.User;
-
+      return Optional.ofNullable(newKunde);
    }
 }

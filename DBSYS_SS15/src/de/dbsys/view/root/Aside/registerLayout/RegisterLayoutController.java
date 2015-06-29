@@ -1,10 +1,12 @@
 package de.dbsys.view.root.Aside.registerLayout;
 
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import de.dbsys.backend.Backend;
-import de.dbsys.backend.Backend.LoginType;
+import de.dbsys.model.Adresse;
+import de.dbsys.model.Kunde;
 import de.dbsys.model.Land;
 import de.dbsys.model.SideContainer;
 import de.dbsys.view.root.Aside.loggedInLayout.LoggedInLayoutLoader;
@@ -16,7 +18,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 
 public class RegisterLayoutController implements Initializable {
@@ -32,6 +33,9 @@ public class RegisterLayoutController implements Initializable {
 
    @FXML
    private TextField ibanTF;
+
+   @FXML
+   private TextField bicTF;
 
    @FXML
    private TextField straszeTF;
@@ -58,38 +62,46 @@ public class RegisterLayoutController implements Initializable {
       container = SideContainer.get();
    }
 
+   private String trim(final String s) {
+      if (s == null)
+         return "";
+      else
+         return s.trim();
+   }
+
    @FXML
       void handleRegisterNewFinish(final ActionEvent event) {
 
-      String vorname = nameTF.getText().trim();
-      String nachname = nachnameTF.getText().trim();
-      String email = emailTF.getText().trim();
-      String pw = emailTF.getText().trim();
-      String iban = ibanTF.getText().trim();
-      String strasze = straszeTF.getText().trim();
-      String plz = plzTF.getText().trim();
+      String vorname = trim(nameTF.getText());
+      String nachname = trim(nachnameTF.getText());
+      String email = trim(emailTF.getText());
+      String pw = trim(emailTF.getText());
+      String iban = trim(ibanTF.getText());
+      String bic = trim(bicTF.getText());
+      String strasze = trim(straszeTF.getText());
+      String plz = trim(plzTF.getText());
       Land land = landCB.getValue();
 
       if (vorname.isEmpty() || nachname.isEmpty() || email.isEmpty() || pw.isEmpty()
-            || iban.isEmpty() || strasze.isEmpty() || plz.isEmpty() || land == null) {
+            || iban.isEmpty() || bic.isEmpty() || strasze.isEmpty() || plz.isEmpty()
+            || land == null) {
          Alert warn = new Alert(AlertType.WARNING);
          warn.setContentText("Alle Felder müssen gefüllt sein");
+         warn.show();
          return;
       }
 
-      LoginType login = Backend.get().login(email, pw);
-      if (LoginType.User.equals(login))
-         container.setSideALoader(new LoggedInLayoutLoader());
-      else if (LoginType.Manager.equals(login))
-         throw new NotImplementedException();
-      // TODO
+      Adresse kundenAdresse = new Adresse(strasze, plz, land);
+      Kunde newKunde = new Kunde(vorname, nachname, email, pw, iban, bic, kundenAdresse);
+
+      Optional<Kunde> kunde = Backend.get().createNewUser(newKunde);
+      if (kunde.isPresent())
+         container.setSideALoader(new LoggedInLayoutLoader(kunde.get()));
       else {
          Alert warn = new Alert(AlertType.WARNING);
-         warn.setContentText("Login Fehlgeschlagen");
+         warn.setContentText("Regestrierung Fehlgeschlagen");
          warn.show();
       }
-
-      container.setSideALoader(new LoggedInLayoutLoader());
    }
 
    @FXML

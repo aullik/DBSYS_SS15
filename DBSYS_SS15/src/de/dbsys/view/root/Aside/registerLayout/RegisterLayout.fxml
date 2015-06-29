@@ -6,27 +6,28 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.40">
+<AnchorPane prefHeight="500.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
 	<children>
-		<TextField fx:id="nameTF" layoutX="39.0" layoutY="64.0" promptText="Vorname" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="222.0" AnchorPane.topAnchor="30.0" />
+		<TextField fx:id="nameTF" layoutX="39.0" layoutY="64.0" prefWidth="160.0" promptText="Vorname" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="30.0" />
 		<Label layoutX="25.0" layoutY="36.0" text="Name" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
 		<Label layoutX="13.0" layoutY="64.0" text="E - Mail" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="65.0" />
 		<Button defaultButton="true" layoutX="31.0" layoutY="249.0" mnemonicParsing="false" onAction="#handleRegisterNewFinish" text="Neuen Nutzer Registrieren" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="400.0" />
-		<TextField fx:id="emailRegisterTF" layoutX="14.0" layoutY="105.0" promptText="E - Mail" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="85.0" />
-		<TextField fx:id="passwortRegisterTF" layoutX="10.0" layoutY="159.0" promptText="Passwort" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="140.0" />
+		<TextField fx:id="emailTF" layoutX="14.0" layoutY="105.0" promptText="E - Mail" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="85.0" />
+		<TextField fx:id="passwortRegisterTF" layoutX="10.0" layoutY="159.0" promptText="Passwort" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="140.0" />
 		<Label layoutX="14.0" layoutY="122.0" text="Passwort " AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="120.0" />
-		<TextField fx:id="ibanTF" layoutX="14.0" layoutY="239.0" promptText="IBAN" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="195.0" />
-		<Label layoutX="18.0" layoutY="202.0" text="IBAN" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="175.0" />
+		<TextField fx:id="ibanTF" layoutX="14.0" layoutY="239.0" prefWidth="210.0" promptText="IBAN" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="195.0" />
+		<Label layoutX="18.0" layoutY="202.0" text="IBAN und BIC" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="175.0" />
 		<TextField fx:id="straszeTF" layoutX="14.0" layoutY="262.0" promptText="Straße" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="115.0" AnchorPane.topAnchor="275.0" />
 		<Label layoutX="17.0" layoutY="232.0" text="Anschrift:" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="230.0" />
 		<TextField fx:id="stadtTF" layoutX="182.0" layoutY="375.0" promptText="Stadt" AnchorPane.leftAnchor="75.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="330.0" />
 		<TextField fx:id="hausNrTF" layoutX="180.0" layoutY="262.0" prefWidth="60.0" promptText="Hausnr." AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="275.0" />
-		<ComboBox fx:id="landTF" editable="true" layoutX="91.0" layoutY="363.0" prefWidth="150.0" promptText="Land" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="360.0" />
+		<ComboBox fx:id="landCB" editable="true" layoutX="91.0" layoutY="363.0" prefWidth="150.0" promptText="Land" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="360.0" />
 		<TextField fx:id="plzTF" layoutX="14.0" layoutY="304.0" prefWidth="60.0" promptText="PLZ" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="330.0" />
 		<Label layoutX="131.0" layoutY="239.0" text="Straße und Hausnr." AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="255.0" />
 		<Label layoutX="14.0" layoutY="312.0" text="PLZ und Stadt" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="310.0" />
 		<Label layoutX="37.0" layoutY="346.0" text="Land" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="364.0" />
-		<Button cancelButton="true" layoutX="19.0" layoutY="434.0" mnemonicParsing="false" onAction="#handleReturnLogin" text="Zum Login zurückkehren" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="60.0" />
-		<TextField fx:id="nachnameTF" layoutX="49.0" layoutY="74.0" promptText="Nachname" AnchorPane.leftAnchor="182.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="30.0" />
+		<Button cancelButton="true" layoutX="19.0" layoutY="434.0" mnemonicParsing="false" onAction="#handleReturnLogin" text="Zum Login zurückkehren" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="60.0" />
+		<TextField fx:id="nachnameTF" layoutX="49.0" layoutY="74.0" promptText="Nachname" AnchorPane.leftAnchor="175.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="30.0" />
+      <TextField fx:id="bicTF" layoutX="218.0" layoutY="195.0" prefWidth="100.0" promptText="BIC" AnchorPane.leftAnchor="225.0" AnchorPane.rightAnchor="20.0" />
 	</children>
 </AnchorPane>
