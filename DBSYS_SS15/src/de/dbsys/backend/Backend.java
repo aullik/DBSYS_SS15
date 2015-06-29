@@ -134,14 +134,29 @@ public final class Backend {
    }
 
    public Optional<Kunde> login(final String email, final String pw) {
-      // TODO Auto-generated method stub
+      try {
+         testname.setString(1, email);
+         testname.setString(2, pw);
+         ResultSet res = testname.executeQuery();
+         Kunde kd = createKunde(res);
+         return Optional.of(kd);
+      } catch (SQLException e) {
+         System.err.println("Exception while executing login-statement");
+         handleSQLException(e);
+         throw new RuntimeException(e);
+      }
 
-      return Optional.of(new Kunde());
+      // return Optional.of(new Kunde());
 
    }
 
    public Optional<Kunde> createNewUser(final Kunde newKunde) {
-      // TODO Auto-generated method stub
+      try{
+         Statement stm = createStatement();
+         StringBuilder sb = new StringBuilder();
+         sb.append("INSERT INTO kunde VALUES (");
+         sb.append("'")
+      }
       return Optional.ofNullable(newKunde);
    }
 
@@ -164,5 +179,19 @@ public final class Backend {
          final ObservableList<Ausstattung> ausstattungen) {
       // TODO Auto-generated method stub
       return new LinkedList<>();
+   }
+
+   // Methode zum Erstellen von Kundenobjekten aus einem ResultSet
+   public Kunde createKunde(final ResultSet set) {
+      try {
+         Kunde kd = new Kunde(set.getString("vorname"), set.getString("nachname"),
+               set.getString("email"), set.getString("passwort"), set.getString("IBAN"),
+               set.getString("bic"), null);
+         return kd;
+      } catch (SQLException e) {
+         System.err.println("Exception while creating 'kunde' from ResultSet");
+         handleSQLException(e);
+         throw new RuntimeException(e);
+      }
    }
 }
