@@ -88,6 +88,14 @@ public class SearchLayoutController implements Initializable {
 
       LocalDate anreise = anreiseDP.getValue();
       LocalDate abreise = abreiseDP.getValue();
+
+      if (anreise.isBefore(abreise)) {
+         Alert warn = new Alert(AlertType.WARNING);
+         warn.setContentText("Die Anreise muss vor der Abreise sein!");
+         warn.show();
+         return;
+      }
+
       Land land = landCB.getValue();
 
       int zimmer;
