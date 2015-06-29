@@ -20,7 +20,7 @@ public final class Backend {
       } catch (SQLException e) {
          throw new RuntimeException(e);
       }
-      test();
+      // test();
    }
 
    private final static Backend INSTANCE = new Backend();
