@@ -5,8 +5,8 @@ import java.util.ResourceBundle;
 
 import de.dbsys.backend.Backend;
 import de.dbsys.model.SideContainer;
-import de.dbsys.view.root.Aside.searchLayout.SearchLayoutLoader;
-import de.dbsys.view.root.Bside.loginLayout.LoginLayoutLoader;
+import de.dbsys.view.root.Aside.loginLayout.LoginLayoutLoader;
+import de.dbsys.view.root.Bside.searchLayout.SearchLayoutLoader;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.SplitPane;

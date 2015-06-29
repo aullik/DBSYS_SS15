@@ -1,11 +1,11 @@
-package de.dbsys.view.root.Bside.standardLayoutB;
+package de.dbsys.view.root.Aside.mainLayout;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.fxml.Initializable;
 
-public class StandardLayoutBController implements Initializable{
+public class BookingConfirmationController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {

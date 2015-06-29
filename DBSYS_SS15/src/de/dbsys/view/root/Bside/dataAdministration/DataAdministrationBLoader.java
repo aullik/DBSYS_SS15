@@ -1,4 +1,4 @@
-package de.dbsys.view.root.Bside.dataAdministrationB;
+package de.dbsys.view.root.Bside.dataAdministration;
 
 import de.dbsys.view.MVCLoader;
 

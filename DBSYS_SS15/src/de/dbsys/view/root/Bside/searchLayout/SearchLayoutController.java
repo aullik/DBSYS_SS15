@@ -1,4 +1,4 @@
-package de.dbsys.view.root.Aside.searchLayout;
+package de.dbsys.view.root.Bside.searchLayout;
 
 import java.net.URL;
 import java.util.ResourceBundle;

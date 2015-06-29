@@ -1,4 +1,4 @@
-package de.dbsys.view.root.Bside.loginLayout;
+package de.dbsys.view.root.Aside.loginLayout;
 
 import java.net.URL;
 import java.util.ResourceBundle;
