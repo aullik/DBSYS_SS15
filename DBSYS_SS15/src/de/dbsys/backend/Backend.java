@@ -168,7 +168,7 @@ public final class Backend {
    }
 
    public Optional<Buchung> getLastCompletedBooking(final Kunde kunde) {
-      // TODO Auto-generated method stub
+      // FIXME: nicht verändern, nicht gebraucht für aufgabe
       return Optional.empty();
    }
 
