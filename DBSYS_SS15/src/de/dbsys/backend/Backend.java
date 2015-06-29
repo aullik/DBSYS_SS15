@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -15,6 +16,8 @@ import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import de.dbsys.model.Ausstattung;
 import de.dbsys.model.Kunde;
 import de.dbsys.model.Land;
+import de.dbsys.model.Wohnung;
+import javafx.collections.ObservableList;
 
 
 public final class Backend {
@@ -160,5 +163,12 @@ public final class Backend {
       LinkedList<Ausstattung> list = new LinkedList<>();
       list.add(new Ausstattung("Sauna"));
       return list;
+   }
+
+   public List<Wohnung> searchApartments(final LocalDate anreise, final LocalDate abreise,
+         final Land land, final int zimmer, final int preisMin, final int preisMax,
+         final ObservableList<Ausstattung> ausstattungen) {
+      // TODO Auto-generated method stub
+      return new LinkedList<>();
    }
 }

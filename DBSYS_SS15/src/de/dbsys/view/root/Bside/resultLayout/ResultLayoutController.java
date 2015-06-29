@@ -17,26 +17,26 @@ import javafx.scene.control.TextArea;
 public class ResultLayoutController implements Initializable {
 
    @FXML
-   private ListView<?> gefundeneWohnungLV;
+   private ListView<Wohnung> gefundeneWohnungLV;
 
    @FXML
    private TextArea wohnungDetailTA;
 
-   private SideContainer container;
+   private final SideContainer container;
 
    private final SearchLayoutLoader searchLoader;
 
    private final List<Wohnung> list;
 
    public ResultLayoutController(final SearchLayoutLoader searchLoader, final List<Wohnung> list) {
+      container = SideContainer.get();
       this.searchLoader = searchLoader;
       this.list = list;
    }
 
    @Override
    public void initialize(final URL location, final ResourceBundle resources) {
-      container = SideContainer.get();
-
+      gefundeneWohnungLV.getItems().addAll(list);
    }
 
    @FXML

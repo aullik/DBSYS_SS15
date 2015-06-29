@@ -1,6 +1,7 @@
 package de.dbsys.view.root.Bside.searchLayout;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -15,6 +16,8 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListCell;
@@ -83,7 +86,40 @@ public class SearchLayoutController implements Initializable {
    @FXML
       void handleApartementSearch(final ActionEvent event) {
 
-      List<Wohnung> list = null;// Backend.get().searchApartments();
+      LocalDate anreise = anreiseDP.getValue();
+      LocalDate abreise = abreiseDP.getValue();
+      Land land = landCB.getValue();
+
+      int zimmer;
+      if (zimmerTF.getText().isEmpty())
+         zimmer = 0;
+      else
+         zimmer = Integer.parseInt(zimmerTF.getText());
+
+      if (anreise == null || abreise == null || zimmer == 0 || land == null) {
+         Alert warn = new Alert(AlertType.WARNING);
+         warn.setContentText(
+               "Weder Anreise Datum, noch Abreise Datum, noch zimmer, noch Land dürfen leer sein!");
+         warn.show();
+         return;
+      }
+
+      int preisMin;
+      if (preisMinTF.getText().isEmpty())
+         preisMin = 0;
+      else
+         preisMin = Integer.parseInt(preisMinTF.getText());
+
+      int preisMax;
+      if (preisMaxTF.getText().isEmpty())
+         preisMax = Integer.MAX_VALUE;
+      else
+         preisMax = Integer.parseInt(preisMaxTF.getText());
+
+      ObservableList<Ausstattung> ausstattungen = ausstattungslist.getItems();
+
+      List<Wohnung> list = Backend.get().searchApartments(anreise, abreise, land, zimmer, preisMin,
+            preisMax, ausstattungen);
 
       container.setSideBLoader(
             new ResultLayoutLoader((SearchLayoutLoader) container.getSideBLoader(), list));
