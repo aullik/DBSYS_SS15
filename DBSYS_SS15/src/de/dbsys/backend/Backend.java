@@ -3,6 +3,7 @@ package de.dbsys.backend;
 import java.security.Security;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -48,41 +49,33 @@ public final class Backend {
    private Connection con;
 
    private Connection getConnection() {
-      return getConnection(true);
-   }
-
-   private Connection getConnection(final boolean rek) {
       try {
          if (con == null || con.isClosed())
             con = DriverManager.getConnection(
                   "jdbc:oracle:thin:@" + dbHost + ":" + dbPort + "/" + dbName, dbUser, dbPass);
          return con;
       } catch (SQLException t) {
-         if (rek) {
-            con = null;
-            return getConnection(false);
-         } else
-            handleSQLException(t);
          throw new RuntimeException(t);
       }
    }
 
-   private Statement createStatement() {
-      return createStatement(true);
+   private final PreparedStatement testname = createPreparedStatement(
+         "Select * from Kunde where email = ? and passwort = ?");
+
+   private PreparedStatement createPreparedStatement(final String sql) {
+      try {
+         return con.prepareStatement(sql);
+      } catch (SQLException e) {
+         throw new RuntimeException(e);
+      }
    }
 
-   private Statement createStatement(final boolean rek) {
+   private Statement createStatement() {
       try {
 
          return getConnection().createStatement();
       } catch (SQLException e) {
-         if (rek) {
-            con = null;
-            return createStatement(false);
-         } else {
-            handleSQLException(e);
-            throw new RuntimeException(e);
-         }
+         throw new RuntimeException(e);
       }
    }
 
@@ -142,6 +135,7 @@ public final class Backend {
 
    public Optional<Kunde> login(final String email, final String pw) {
       // TODO Auto-generated method stub
+
       return Optional.of(new Kunde());
 
    }
