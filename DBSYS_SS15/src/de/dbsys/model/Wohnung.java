@@ -3,7 +3,7 @@ package de.dbsys.model;
 import java.util.List;
 
 
-public class Ferienwohnung {
+public class Wohnung {
 
    int Wohnungsnummer;
    int PreisProTag;
