@@ -3,7 +3,6 @@ package de.dbsys.view.root.rootLayout;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import de.dbsys.backend.Backend;
 import de.dbsys.model.SideContainer;
 import de.dbsys.view.root.Aside.loginLayout.LoginLayoutLoader;
 import de.dbsys.view.root.Bside.searchLayout.SearchLayoutLoader;
@@ -42,7 +41,7 @@ public class RootLayoutController implements Initializable {
       container.setSideALoader(new LoginLayoutLoader());
       container.setSideBLoader(new SearchLayoutLoader());
 
-//      Backend.get(); // FIXME REMOVE
+      // Backend.get(); // FIXME REMOVE
 
    }
 }
