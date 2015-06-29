@@ -1,4 +1,4 @@
-package de.dbsys.view.root.Aside.bookingConfirmation;
+package de.dbsys.view.root.Aside.mainLayout;
 
 import de.dbsys.view.MVCLoader;
 

@@ -1,4 +1,4 @@
-package de.dbsys.view.root.Bside.loginLayout;
+package de.dbsys.view.root.Aside.loginLayout;
 
 import de.dbsys.view.MVCLoader;
 

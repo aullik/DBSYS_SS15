@@ -1,4 +1,4 @@
-package de.dbsys.view.root.Bside.registerLayoutB;
+package de.dbsys.view.root.Bside.resultLayout;
 
 import de.dbsys.view.MVCLoader;
 
