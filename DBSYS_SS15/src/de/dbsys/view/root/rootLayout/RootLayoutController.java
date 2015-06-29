@@ -1,4 +1,4 @@
-package de.dbsys.view.root.Bside.rootLayout;
+package de.dbsys.view.root.rootLayout;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -13,7 +13,7 @@ import javafx.scene.layout.BorderPane;
 import de.dbsys.backend.Backend;
 import de.dbsys.view.MVCLoader;
 import de.dbsys.view.root.Aside.searchLayout.SearchLayoutLoader;
-import de.dbsys.view.root.loginLayout.LoginLayoutLoader;
+import de.dbsys.view.root.Bside.loginLayout.LoginLayoutLoader;
 
 
 public class RootLayoutController implements Initializable {

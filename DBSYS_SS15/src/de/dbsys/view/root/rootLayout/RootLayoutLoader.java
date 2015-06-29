@@ -1,4 +1,4 @@
-package de.dbsys.view.root.Bside.rootLayout;
+package de.dbsys.view.root.rootLayout;
 
 import de.dbsys.view.MVCLoader;
 
