@@ -3,6 +3,7 @@ package de.dbsys.view.root.Bside.bookingConfirmation;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import de.dbsys.model.Buchung;
 import de.dbsys.model.SideContainer;
 import de.dbsys.view.root.Bside.resultLayout.ResultLayoutLoader;
 import de.dbsys.view.root.Bside.searchLayout.SearchLayoutLoader;
@@ -16,8 +17,11 @@ public class BookingConfirmationController implements Initializable {
 
    private final ResultLayoutLoader rLL;
 
-   public BookingConfirmationController(final ResultLayoutLoader rLL) {
+   private final Buchung buchung;
+
+   public BookingConfirmationController(final ResultLayoutLoader rLL, final Buchung buchung) {
       this.rLL = rLL;
+      this.buchung = buchung;
 
    }
 

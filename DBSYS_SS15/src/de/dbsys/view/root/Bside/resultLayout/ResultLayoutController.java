@@ -2,6 +2,7 @@ package de.dbsys.view.root.Bside.resultLayout;
 
 import java.net.URL;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import de.dbsys.model.SideContainer;
@@ -42,6 +43,11 @@ public class ResultLayoutController implements Initializable {
    @FXML
       void handleBackToSearch(final ActionEvent event) {
       container.setSideBLoader(searchLoader);
+   }
+
+   public Optional<Wohnung> getSelectedWohnung() {
+      // TODO Auto-generated method stub
+      return null;
    }
 
 }

@@ -15,6 +15,7 @@ import java.util.Optional;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 import de.dbsys.model.Ausstattung;
+import de.dbsys.model.Buchung;
 import de.dbsys.model.Kunde;
 import de.dbsys.model.Land;
 import de.dbsys.model.Wohnung;
@@ -59,8 +60,8 @@ public final class Backend {
       }
    }
 
-   private final PreparedStatement testname = createPreparedStatement(
-         "Select * from Kunde where email = ? and passwort = ?");
+   // private final PreparedStatement testname = createPreparedStatement(
+   // "Select * from Kunde where email = ? and passwort = ?");
 
    private PreparedStatement createPreparedStatement(final String sql) {
       try {
@@ -164,5 +165,20 @@ public final class Backend {
          final ObservableList<Ausstattung> ausstattungen) {
       // TODO Auto-generated method stub
       return new LinkedList<>();
+   }
+
+   public Optional<Buchung> getLastCompletedBooking(final Kunde kunde) {
+      // TODO Auto-generated method stub
+      return Optional.empty();
+   }
+
+   public void evaluateBooking(final Buchung buchung, final int bewertung) {
+      // TODO Auto-generated method stub
+      // bewertung zwischen 10 und 60
+   }
+
+   public Optional<Buchung> bookWohnung(final Wohnung wohnung) {
+      // TODO Auto-generated method stub
+      return null;
    }
 }

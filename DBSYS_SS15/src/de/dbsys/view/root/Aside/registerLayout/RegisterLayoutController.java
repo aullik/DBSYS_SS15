@@ -1,6 +1,7 @@
 package de.dbsys.view.root.Aside.registerLayout;
 
 import java.net.URL;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -17,6 +18,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.TextField;
 
 
@@ -60,6 +62,11 @@ public class RegisterLayoutController implements Initializable {
    @Override
    public void initialize(final URL arg0, final ResourceBundle arg1) {
       container = SideContainer.get();
+
+      List<Land> lands = Backend.get().getAllLands();
+      landCB.setCellFactory(ign -> new LandesCell());
+      landCB.setButtonCell(new LandesCell());
+      landCB.getItems().addAll(lands);
    }
 
    private String trim(final String s) {
@@ -107,5 +114,17 @@ public class RegisterLayoutController implements Initializable {
    @FXML
       void handleReturnLogin(final ActionEvent event) {
       container.setSideALoader(new LoginLayoutLoader());
+   }
+
+   private static class LandesCell extends ListCell<Land> {
+
+      @Override
+      protected void updateItem(final Land item, final boolean empty) {
+         super.updateItem(item, empty);
+         if (empty)
+            setText("");
+         else
+            setText(item.getLandesname());
+      }
    }
 }
