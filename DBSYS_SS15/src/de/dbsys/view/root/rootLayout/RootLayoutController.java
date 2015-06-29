@@ -48,7 +48,7 @@ public class RootLayoutController implements Initializable {
       childA.set(new LoginLayoutLoader());
       childB.set(new SearchLayoutLoader());
 
-      Backend.get(); // FIXME REMOVE
+//      Backend.get(); // FIXME REMOVE
 
    }
 }
