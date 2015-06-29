@@ -19,10 +19,10 @@ public class RegisterLayoutController implements Initializable {
    private TextField nameTF;
 
    @FXML
-   private TextField emailRegisterTF;
+   private TextField emailTF;
 
    @FXML
-   private TextField passwortRegisterTF;
+   private TextField passwortTF;
 
    @FXML
    private TextField ibanTF;
@@ -37,7 +37,7 @@ public class RegisterLayoutController implements Initializable {
    private TextField hausNrTF;
 
    @FXML
-   private ComboBox<?> landTF;
+   private ComboBox<?> landCB;
 
    @FXML
    private TextField plzTF;
