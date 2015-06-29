@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 
 import de.dbsys.model.Kunde;
 import de.dbsys.model.SideContainer;
+import de.dbsys.view.MVCLoader;
 import de.dbsys.view.root.Aside.loginLayout.LoginLayoutLoader;
 import de.dbsys.view.root.Bside.bookingConfirmation.BookingConfirmationLoader;
 import de.dbsys.view.root.Bside.dataAdministration.DataAdministrationLoader;
@@ -54,7 +55,10 @@ public class LoggedInLayoutController implements Initializable {
    @FXML
       void handleLogout(final ActionEvent event) {
       container.setSideALoader(new LoginLayoutLoader());
-      container.setSideBLoader(new SearchLayoutLoader());
+      // FIXME: only when on certain page
+      MVCLoader sideB = container.getSideBLoader();
+      if (sideB instanceof DataAdministrationLoader || sideB instanceof BookingConfirmationLoader)
+         container.setSideBLoader(new SearchLayoutLoader());
    }
 
 }

@@ -6,11 +6,15 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
+import de.dbsys.model.Ausstattung;
 import de.dbsys.model.Kunde;
+import de.dbsys.model.Land;
 
 
 public final class Backend {
@@ -142,5 +146,19 @@ public final class Backend {
    public Optional<Kunde> createNewUser(final Kunde newKunde) {
       // TODO Auto-generated method stub
       return Optional.ofNullable(newKunde);
+   }
+
+   public List<Land> getAllLands() {
+      // TODO Auto-generated method stub
+      List<Land> list = new LinkedList<>();
+      list.add(new Land(0, "Deutschland"));
+      return list;
+   }
+
+   public List<Ausstattung> getallAusstattungen() {
+      // TODO Auto-generated method stub
+      LinkedList<Ausstattung> list = new LinkedList<>();
+      list.add(new Ausstattung("Sauna"));
+      return list;
    }
 }
