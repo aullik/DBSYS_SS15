@@ -223,12 +223,12 @@ public final class Backend {
    }
 
    public Optional<Buchung> getLastCompletedBooking(final Kunde kunde) {
-      // FIXME: nicht verändern, nicht gebraucht für aufgabe
+      // FIXME: nicht verÃ¤ndern, nicht gebraucht fÃ¼r aufgabe
       return Optional.empty();
    }
 
    public void evaluateBooking(final Buchung buchung, final int bewertung) {
-      // FIXME: nicht verändern, nicht gebraucht für aufgabe
+      // FIXME: nicht verÃ¤ndern, nicht gebraucht fÃ¼r aufgabe
       // TODO Auto-generated method stub
       // bewertung zwischen 10 und 60
    }
@@ -241,7 +241,7 @@ public final class Backend {
    // Methode zum Erstellen von Kundenobjekten aus einem ResultSet
    private Kunde createKunde(final ResultSet set) {
       try {
-         // TODO: JOIN mit adresse einfügen + Adresse auslesen
+         // TODO: JOIN mit adresse einfÃ¼gen + Adresse auslesen
 
          Kunde kd = new Kunde(set.getString("vorname"), set.getString("nachname"),
                set.getString("mailadresse"), set.getString("passwort"), set.getString("IBAN"),
@@ -259,7 +259,7 @@ public final class Backend {
          insertAdresse(newKunde.getAdresse());
          Statement stm = createStatement();
          StringBuilder sb = new StringBuilder();
-         sb.append("INSERT INTO kunde VALUES (");
+         sb.append("INSERT INTO kunde VALUES ("); // FIXME: definiere die einzufÃ¼genden spalten
          sb.append("sqKundenId.nextval").append(", ");
          sb.append("'").append(newKunde.getBIC()).append("', ");
          sb.append("'").append(newKunde.getIBAN()).append("', ");
@@ -289,7 +289,7 @@ public final class Backend {
       }
    }
 
-   // Methode für den Insert einer Adresse
+   // Methode fÃ¼r den Insert einer Adresse
    private void insertAdresse(final Adresse adr) {
       try {
          Statement stm = createStatement();
