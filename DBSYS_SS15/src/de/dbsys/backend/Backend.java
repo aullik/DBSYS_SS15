@@ -300,6 +300,9 @@ public final class Backend {
 
          ResultSet res = stm.executeQuery(mySearchQuery);
 
+         if (!res.next())
+            return null;
+
          Land la = new Land(res.getInt("landesid"), res.getString("landesname"));
 
          Adresse adr = new Adresse(res.getString("strasze"), res.getString("hausnummer"),
