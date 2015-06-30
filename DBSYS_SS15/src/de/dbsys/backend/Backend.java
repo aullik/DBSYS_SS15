@@ -27,6 +27,8 @@ import javafx.collections.ObservableList;
 
 public final class Backend {
 
+   private Connection con = getConnection();
+
    private Backend() {
       this.con = getConnection();
       Security.addProvider(new BouncyCastleProvider());
@@ -49,8 +51,6 @@ public final class Backend {
    private static final String dbName = "ora12c"; // Datenbankname
    private static final String dbUser = "dbsys15"; // Datenbankuser
    private static final String dbPass = "dbsys15"; // Datenbankpasswort
-
-   private Connection con;
 
    private Connection getConnection() {
       try {
