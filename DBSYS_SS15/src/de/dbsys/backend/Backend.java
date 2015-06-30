@@ -100,8 +100,10 @@ public final class Backend {
          loginQuery.setString(2, pw);
          ResultSet res = loginQuery.executeQuery();
 
-         if (!res.next())
+         if (!res.next()) {
+            res.close();
             return Optional.empty();
+         }
 
          Kunde kd = createKunde(res);
          res.close();
@@ -263,15 +265,17 @@ public final class Backend {
                + buchung.getWohnung().getWohnungsnummer();
 
          ResultSet rest = stm2.executeQuery(mySearchQuery);
-         if (!rest.next())
+         if (!rest.next()) {
+
+            stm2.close();
+            con.commit();
             return Optional.empty();
+         }
 
          book = new Buchung(buchung.getAnreiseDatum(), buchung.getAbreiseDatum(),
                buchung.getWohnung(), buchung.getKunde(), rest.getInt("buchungsnummer"),
                LocalDate.now());
 
-         stm2.close();
-         con.commit();
          return Optional.of(book);
 
       } catch (SQLException e) {
