@@ -342,7 +342,7 @@ public final class Backend {
          StringBuilder sb = new StringBuilder();
          sb.append(
                "INSERT INTO dbsys20.kunde(kundenid, bic, iban, mailadresse, vorname, nachname, passwort, adressid) VALUES (");
-         sb.append("sqKundenId.nextval").append(", ");
+         sb.append("dbsys20.sqKundenId.nextval").append(", ");
          sb.append("'").append(newKunde.getBIC()).append("', ");
          sb.append("'").append(newKunde.getIBAN()).append("', ");
          sb.append("'").append(newKunde.getEmail()).append("', ");
@@ -352,11 +352,14 @@ public final class Backend {
          sb.append(Integer.toString(adressId)).append(")");
 
          String myInsertQuery = sb.toString();
+         System.out.println(myInsertQuery); // FIXME REMOVE
 
          stm.executeQuery(myInsertQuery);
          stm.close();
 
-         return login(newKunde.getEmail(), newKunde.getPassword());
+         Optional<Kunde> login = login(newKunde.getEmail(), newKunde.getPassword());
+         con.commit();
+         return login;
 
       } catch (SQLException e) {
          try {
@@ -385,6 +388,7 @@ public final class Backend {
          sb.append("'").append(adr.getHausnummer()).append("') ");
 
          String myInsertQuery = sb.toString();
+         System.out.println(myInsertQuery); // FIXME REMOVE
          stm.executeQuery(myInsertQuery);
 
          String select = "Select dbsys20.SQAdressID.currVal from dual";
