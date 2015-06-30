@@ -263,7 +263,7 @@ public final class Backend {
          sb.append("null, ");
          sb.append("null, ");
          sb.append(buchung.getWohnung().getWohnungsnummer()).append(", ");
-         sb.append(buchung.getKunde().getKundenId());
+         sb.append(buchung.getKunde().getKundenId()).append(")");
 
          String myInsertQuery = sb.toString();
          stm.executeUpdate(myInsertQuery);
@@ -381,8 +381,8 @@ public final class Backend {
          sb.append("dbsys20.SQAdressId.nextval").append(", ");
          sb.append(Integer.toString(adr.getLand().getLandesId())).append(", ");
          sb.append("'").append(adr.getPLZ()).append("', ");
-         sb.append("'").append(adr.getStrasze()).append(", ");
-         sb.append("'").append(adr.getHausnummer()).append(", ");
+         sb.append("'").append(adr.getStrasze()).append("', ");
+         sb.append("'").append(adr.getHausnummer()).append("') ");
 
          String myInsertQuery = sb.toString();
          stm.executeQuery(myInsertQuery);
