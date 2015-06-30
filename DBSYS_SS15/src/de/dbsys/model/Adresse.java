@@ -9,14 +9,19 @@ public class Adresse {
    String hausnummer;
    String ort;
 
-   public Adresse(final String strasze, final String hausnummer, final String ort, final String plz,
-         final Land land) {
+   public Adresse(final int adressID, final String strasze, final String hausnummer,
+         final String ort, final String plz, final Land land) {
       this.hausnummer = hausnummer;
       this.ort = ort;
-      this.adressId = 0;
+      this.adressId = adressID;
       this.strasze = strasze;
       this.PLZ = plz;
       this.land = land;
+   }
+
+   public Adresse(final String strasze2, final String hausnr, final String ort2, final String plz2,
+         final Land land2) {
+      this(0, strasze2, hausnr, ort2, plz2, land2);
    }
 
    public Land getLand() {
@@ -58,6 +63,10 @@ public class Adresse {
    public void setHausnummer(final String hausnummer) {
       this.hausnummer = hausnummer;
 
+   }
+
+   public String getOrt() {
+      return ort;
    }
 
    @Override

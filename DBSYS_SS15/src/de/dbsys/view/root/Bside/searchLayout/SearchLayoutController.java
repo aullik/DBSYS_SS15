@@ -89,7 +89,7 @@ public class SearchLayoutController implements Initializable {
       LocalDate anreise = anreiseDP.getValue();
       LocalDate abreise = abreiseDP.getValue();
 
-      if (anreise.isBefore(abreise)) {
+      if (anreise == null || abreise == null || anreise.isBefore(abreise)) {
          Alert warn = new Alert(AlertType.WARNING);
          warn.setContentText("Die Anreise muss vor der Abreise sein!");
          warn.show();
@@ -107,7 +107,7 @@ public class SearchLayoutController implements Initializable {
       if (anreise == null || abreise == null || zimmer == 0 || land == null) {
          Alert warn = new Alert(AlertType.WARNING);
          warn.setContentText(
-               "Weder Anreise Datum, noch Abreise Datum, noch zimmer, noch Land dürfen leer sein!");
+               "Weder Anreise Datum, noch Abreise Datum, noch zimmer, noch Land dï¿½rfen leer sein!");
          warn.show();
          return;
       }

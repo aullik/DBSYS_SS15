@@ -64,7 +64,7 @@ public final class Backend {
    }
 
    private final PreparedStatement loginQuery = createPreparedStatement(
-         "Select * from Kunde where mailadresse = ? and passwort = ?");
+         "Select * from dbsys20.Kunde where mailadresse = ? and passwort = ?");
 
    private PreparedStatement createPreparedStatement(final String sql) {
       try {
@@ -94,17 +94,24 @@ public final class Backend {
 
    public Optional<Kunde> login(final String email, final String pw) {
       try {
-         loginQuery.setString(1, email);
-         loginQuery.setString(2, pw);
-         ResultSet res = loginQuery.executeQuery();
+         // loginQuery.setString(1, email);
+         // loginQuery.setString(2, pw);
+         // ResultSet res = loginQuery.executeQuery();
+
+         Statement stm = createStatement();
+         String select = "Select * from dbsys20.Kunde where mailadresse = '" + email
+               + "' and passwort = '" + pw + "'";
+
+         ResultSet res = stm.executeQuery(select);
 
          if (!res.next()) {
+            System.err.println("no result"); // FIXME
             res.close();
             return Optional.empty();
          }
 
          Kunde kd = createKunde(res);
-         res.close();
+         stm.close();
          return Optional.ofNullable(kd);
       } catch (SQLException e) {
          System.err.println("Exception while executing login-statement");
@@ -120,7 +127,8 @@ public final class Backend {
       List<Land> list = new LinkedList<>();
       try {
          Statement stm = createStatement();
-         String mySearchQuery = "SELECT * FROM land";
+         // String mySearchQuery = "SELECT * FROM land";
+         String mySearchQuery = "SELECT landesid, landesname FROM dbsys20.land ORDER BY LANDESNAME";
          ResultSet rset = stm.executeQuery(mySearchQuery);
          while (rset.next()) {
             Land tmp = new Land(rset.getInt("landesid"), rset.getString("landesname"));
@@ -146,7 +154,7 @@ public final class Backend {
       LinkedList<Ausstattung> list = new LinkedList<>();
       try {
          Statement stm = createStatement();
-         String mySearchQuery = "SELECT * FROM ausstattung";
+         String mySearchQuery = "SELECT * FROM dbsys20.ausstattung";
          ResultSet rset = stm.executeQuery(mySearchQuery);
          while (rset.next()) {
             Ausstattung tmp = new Ausstattung(rset.getString("bezeichnung"));
@@ -238,7 +246,7 @@ public final class Backend {
       try {
          Statement stm = createStatement();
          StringBuilder sb = new StringBuilder();
-         sb.append("INSERT INTO buchung VALUES (");
+         sb.append("INSERT INTO dbsys20.buchung VALUES (");
          sb.append("sqBuchungsnummer.nextVal, ");
          sb.append("SYSDATE, ");
          sb.append("to_date('").append(buchung.getAnreiseDatum().toString()).append("'), ");
@@ -257,7 +265,7 @@ public final class Backend {
          stm.close();
 
          Statement stm2 = createStatement();
-         String mySearchQuery = "SELECT buchungsnummer FROM buchung WHERE Kundenid = "
+         String mySearchQuery = "SELECT buchungsnummer FROM dbsys20.buchung WHERE Kundenid = "
                + buchung.getKunde().getKundenId()
                + "AND buchungsdatum = SYSDATE AND wohnungsnummer = "
                + buchung.getWohnung().getWohnungsnummer();
@@ -294,7 +302,7 @@ public final class Backend {
    private Kunde createKunde(final ResultSet set) {
       try {
          Statement stm = createStatement();
-         String mySearchQuery = "SELECT * FROM adresse JOIN land ON adresse.landesid = land.landesid WHERE kundenid = "
+         String mySearchQuery = "SELECT * FROM dbsys20.kunde k Join dbsys20.adresse a ON k.adressid = a.adressid JOIN dbsys20.land l ON a.landesid = l.landesid WHERE k.kundenid = "
                + set.getInt("kundenid");
 
          ResultSet res = stm.executeQuery(mySearchQuery);
@@ -304,8 +312,9 @@ public final class Backend {
 
          Land la = new Land(res.getInt("landesid"), res.getString("landesname"));
 
-         Adresse adr = new Adresse(res.getString("strasze"), res.getString("hausnummer"),
-               res.getString("ort"), res.getString("plz"), la);
+         Adresse adr = new Adresse(res.getInt("adressId"), res.getString("strasze"),
+               res.getString("hausnummer"), "testort"// FIXME: add ort res.getString("ort")
+               , res.getString("plz"), la);
 
          Kunde kd = new Kunde(set.getString("vorname"), set.getString("nachname"),
                set.getString("mailadresse"), set.getString("passwort"), set.getString("IBAN"),
@@ -322,10 +331,11 @@ public final class Backend {
 
    public Optional<Kunde> createNewUser(final Kunde newKunde) {
       try {
-         insertAdresse(newKunde.getAdresse());
+         int adressId = insertAdresse(newKunde.getAdresse());
          Statement stm = createStatement();
          StringBuilder sb = new StringBuilder();
-         sb.append("INSERT INTO kunde VALUES ("); // FIXME: definiere die einzufügenden spalten
+         sb.append(
+               "INSERT INTO dbsys20.kunde(kundenid, bic, iban, mailadresse, vorname, nachname, passwort, adressid) VALUES (");
          sb.append("sqKundenId.nextval").append(", ");
          sb.append("'").append(newKunde.getBIC()).append("', ");
          sb.append("'").append(newKunde.getIBAN()).append("', ");
@@ -333,7 +343,7 @@ public final class Backend {
          sb.append("'").append(newKunde.getVorname()).append("', ");
          sb.append("'").append(newKunde.getNachname()).append("', ");
          sb.append("'").append(newKunde.getPassword()).append("', ");
-         sb.append(Integer.toString(newKunde.getAdresse().getAdressId())).append(")");
+         sb.append(Integer.toString(adressId)).append(")");
 
          String myInsertQuery = sb.toString();
 
@@ -356,12 +366,13 @@ public final class Backend {
    }
 
    // Methode für den Insert einer Adresse
-   private void insertAdresse(final Adresse adr) {
+   private int insertAdresse(final Adresse adr) throws SQLException {
       try {
          Statement stm = createStatement();
          StringBuilder sb = new StringBuilder();
-         sb.append("INSERT INTO Adresse VALUES (");
-         sb.append("SQAdressId.nextval").append(", ");
+         sb.append(
+               "INSERT INTO dbsys20.Adresse (AdressId, Landesid, plz, strasze, hausnummer) VALUES (");
+         sb.append("dbsys20.SQAdressId.nextval").append(", ");
          sb.append(Integer.toString(adr.getLand().getLandesId())).append(", ");
          sb.append("'").append(adr.getPLZ()).append("', ");
          sb.append("'").append(adr.getStrasze()).append(", ");
@@ -369,22 +380,29 @@ public final class Backend {
 
          String myInsertQuery = sb.toString();
          stm.executeQuery(myInsertQuery);
+
+         String select = "Select dbsys20.SQAdressID.currVal from dual";
+
+         ResultSet resultSet = stm.executeQuery(select);
+         if (!resultSet.next())
+            throw new SQLException("no result");
+
+         int adressID = resultSet.getInt(1);
+
+         // new Adresse(adressID, adr.getStrasze(), adr.getHausnummer(), adr.getOrt(), adr.getPLZ(),
+         // adr.getLand());
+
          stm.close();
+         return adressID;
          // con.commit(); must not commit. will be commited in createNewUser
       } catch (SQLException e) {
-         try {
-            con.rollback();
-         } catch (SQLException se) {
-            se.printStackTrace();
-         }
          System.err.println("Exception while inserting new adress");
-         handleSQLException(e);
-         throw new RuntimeException(e);
+         throw e;
       }
    }
 
    // Methode um Daten aus einem ResultSet in eine Wohnung umzuwandeln
-   public Wohnung getWohnung(final ResultSet set) {
+   private Wohnung getWohnung(final ResultSet set) {
 
       Wohnung apt = new Wohnung();
       try {
@@ -394,8 +412,8 @@ public final class Backend {
          at.setName(set.getString("attraktionsname"));
 
          Land la = new Land(set.getInt("landesid"), set.getString("landesname"));
-         Adresse adr = new Adresse(set.getString("strasze"), set.getString("hausnummer"),
-               set.getString("ort"), set.getString("plz"), la);
+         Adresse adr = new Adresse(set.getInt("adressid"), set.getString("strasze"),
+               set.getString("hausnummer"), set.getString("ort"), set.getString("plz"), la);
          Ausstattung aus = new Ausstattung(set.getString("bezeichnung"));
 
          apt.setAnzahlZimmer(set.getInt("anzahlzimmer"));
