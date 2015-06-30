@@ -82,7 +82,7 @@ public class RegisterLayoutController implements Initializable {
       String vorname = trim(nameTF.getText());
       String nachname = trim(nachnameTF.getText());
       String email = trim(emailTF.getText());
-      String pw = trim(emailTF.getText());
+      String pw = trim(passwortTF.getText());
       String iban = trim(ibanTF.getText());
       String bic = trim(bicTF.getText());
       String strasze = trim(straszeTF.getText());

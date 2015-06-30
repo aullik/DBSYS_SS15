@@ -8,6 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -26,6 +28,9 @@ import javafx.collections.ObservableList;
 
 
 public final class Backend {
+
+   private final static DateTimeFormatter DTF = DateTimeFormatter
+         .ofLocalizedDate(FormatStyle.MEDIUM);
 
    private Connection con = getConnection();
 
@@ -184,13 +189,14 @@ public final class Backend {
          StringBuilder sb = new StringBuilder();
          /*
          sb.append(
-               "SELECT * --f1.wohnungsnummer FROM dbsys20.Ferienwohnung f1 JOIN dbsys20.adresse a1 ON f1.adressid = a1.adressid "
+               "SELECT * FROM dbsys20.Ferienwohnung f1 JOIN dbsys20.adresse a1 ON f1.adressid = a1.adressid "
                      + "JOIN dbsys20.land l1 ON l1.landesid = a1.landesid JOIN dbsys20.ausgestattetmit am1 ON f1.wohnungsnummer = am1.wohnungsnummer "
                      + "LEFT JOIN dbsys20.liegtinnaehe lin ON f1.wohnungsnummer = lin.wohnungsnummer JOIN dbsys20.attraktion at ON lin.attraktionsname = at.attraktionsname "
                      + "LEFT JOIN dbsys20.Buchung b1 ON f1.wohnungsnummer  = b1.wohnungsnummer");
-         sb.append("WHERE l1.landesname = '").append(land.getLandesname()).append("'");
+         sb.append(" WHERE l1.landesname = '").append(land.getLandesname()).append("'");
          for (Ausstattung aus : ausstattungen)
             sb.append("AND am1.bezeichnung = '").append(aus.getBezeichung()).append("'");
+<<<<<<< HEAD
          sb.append("AND b1.abreisedatum > to_date('").append(abreise.toString()).append("')");
          sb.append("AND b1.anreisedatum < to_date('").append(anreise.toString()).append("')");
          */
@@ -211,8 +217,13 @@ public final class Backend {
          sb.append("AND b1.abreisedatum > to_date('").append(anreise.toString()).append("') ");
          sb.append("AND b1.anreisedatum < to_date('").append(abreise.toString()).append("') ");
          sb.append(");");
+=======
+         sb.append("AND b1.abreisedatum > to_date('").append(abreise.format(DTF)).append("')");
+         sb.append("AND b1.anreisedatum < to_date('").append(anreise.format(DTF)).append("')");
+>>>>>>> branch 'master' of https://github.com/aullik/DBSYS_SS15.git
 
          String mySearchQuery = sb.toString();
+         System.out.println(mySearchQuery);
          ResultSet rset = stm.executeQuery(mySearchQuery);
 
          HashMap<Integer, List<Ausstattung>> ausMap = new HashMap<>();
@@ -266,10 +277,10 @@ public final class Backend {
          Statement stm = createStatement();
          StringBuilder sb = new StringBuilder();
          sb.append("INSERT INTO dbsys20.buchung VALUES (");
-         sb.append("sqBuchungsnummer.nextVal, ");
+         sb.append("dbsys20.sqBuchungsnummer.nextVal, ");
          sb.append("SYSDATE, ");
-         sb.append("to_date('").append(buchung.getAnreiseDatum().toString()).append("'), ");
-         sb.append("to_date('").append(buchung.getAbreiseDatum().toString()).append("'), ");
+         sb.append("to_date('").append(buchung.getAnreiseDatum().format(DTF)).append("'), ");
+         sb.append("to_date('").append(buchung.getAbreiseDatum().format(DTF)).append("'), ");
          sb.append("null, ");
          sb.append("null, ");
          sb.append("null, ");
@@ -279,15 +290,17 @@ public final class Backend {
          sb.append(buchung.getKunde().getKundenId()).append(")");
 
          String myInsertQuery = sb.toString();
+         System.out.println(myInsertQuery);
          stm.executeUpdate(myInsertQuery);
 
          stm.close();
 
          Statement stm2 = createStatement();
-         String mySearchQuery = "SELECT buchungsnummer FROM dbsys20.buchung WHERE Kundenid = "
-               + buchung.getKunde().getKundenId()
-               + "AND buchungsdatum = SYSDATE AND wohnungsnummer = "
-               + buchung.getWohnung().getWohnungsnummer();
+         String mySearchQuery = "Select dbsys20.sqBuchungsnummer.currval from dual";
+         // String mySearchQuery = "SELECT buchungsnummer FROM dbsys20.buchung WHERE Kundenid = "
+         // + buchung.getKunde().getKundenId()
+         // + "AND buchungsdatum = SYSDATE AND wohnungsnummer = "
+         // + buchung.getWohnung().getWohnungsnummer();
 
          ResultSet rest = stm2.executeQuery(mySearchQuery);
          if (!rest.next()) {
@@ -297,8 +310,7 @@ public final class Backend {
          }
 
          book = new Buchung(buchung.getAnreiseDatum(), buchung.getAbreiseDatum(),
-               buchung.getWohnung(), buchung.getKunde(), rest.getInt("buchungsnummer"),
-               LocalDate.now());
+               buchung.getWohnung(), buchung.getKunde(), rest.getInt(1), LocalDate.now());
 
          stm2.close();
          con.commit();
@@ -355,7 +367,7 @@ public final class Backend {
          StringBuilder sb = new StringBuilder();
          sb.append(
                "INSERT INTO dbsys20.kunde(kundenid, bic, iban, mailadresse, vorname, nachname, passwort, adressid) VALUES (");
-         sb.append("sqKundenId.nextval").append(", ");
+         sb.append("dbsys20.sqKundenId.nextval").append(", ");
          sb.append("'").append(newKunde.getBIC()).append("', ");
          sb.append("'").append(newKunde.getIBAN()).append("', ");
          sb.append("'").append(newKunde.getEmail()).append("', ");
@@ -365,11 +377,14 @@ public final class Backend {
          sb.append(Integer.toString(adressId)).append(")");
 
          String myInsertQuery = sb.toString();
+         System.out.println(myInsertQuery); // FIXME REMOVE
 
          stm.executeQuery(myInsertQuery);
          stm.close();
 
-         return login(newKunde.getEmail(), newKunde.getPassword());
+         Optional<Kunde> login = login(newKunde.getEmail(), newKunde.getPassword());
+         con.commit();
+         return login;
 
       } catch (SQLException e) {
          try {
@@ -398,6 +413,7 @@ public final class Backend {
          sb.append("'").append(adr.getHausnummer()).append("') ");
 
          String myInsertQuery = sb.toString();
+         System.out.println(myInsertQuery); // FIXME REMOVE
          stm.executeQuery(myInsertQuery);
 
          String select = "Select dbsys20.SQAdressID.currVal from dual";
