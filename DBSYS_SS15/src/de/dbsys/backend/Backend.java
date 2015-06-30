@@ -196,7 +196,6 @@ public final class Backend {
          sb.append(" WHERE l1.landesname = '").append(land.getLandesname()).append("'");
          for (Ausstattung aus : ausstattungen)
             sb.append("AND am1.bezeichnung = '").append(aus.getBezeichung()).append("'");
-<<<<<<< HEAD
          sb.append("AND b1.abreisedatum > to_date('").append(abreise.toString()).append("')");
          sb.append("AND b1.anreisedatum < to_date('").append(anreise.toString()).append("')");
          */
@@ -214,13 +213,9 @@ public final class Backend {
          sb.append("WHERE l1.landesname = '").append(land.getLandesname()).append("' ");
          for (Ausstattung aus : ausstattungen)
             sb.append("AND am1.bezeichnung = '").append(aus.getBezeichung()).append("' ");
-         sb.append("AND b1.abreisedatum > to_date('").append(anreise.toString()).append("') ");
-         sb.append("AND b1.anreisedatum < to_date('").append(abreise.toString()).append("') ");
-         sb.append(");");
-=======
-         sb.append("AND b1.abreisedatum > to_date('").append(abreise.format(DTF)).append("')");
-         sb.append("AND b1.anreisedatum < to_date('").append(anreise.format(DTF)).append("')");
->>>>>>> branch 'master' of https://github.com/aullik/DBSYS_SS15.git
+         sb.append("AND b1.abreisedatum > to_date('").append(anreise.format(DTF)).append("') ");
+         sb.append("AND b1.anreisedatum < to_date('").append(abreise.format(DTF)).append("') ");
+         sb.append(")");
 
          String mySearchQuery = sb.toString();
          System.out.println(mySearchQuery);
