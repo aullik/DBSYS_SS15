@@ -98,7 +98,10 @@ public final class Backend {
          loginQuery.setString(1, email);
          loginQuery.setString(2, pw);
          ResultSet res = loginQuery.executeQuery();
-         res.next();
+
+         if (!res.next())
+            return Optional.empty();
+
          Kunde kd = createKunde(res);
          res.close();
          return Optional.of(kd);
@@ -110,41 +113,6 @@ public final class Backend {
 
       // return Optional.of(new Kunde());
 
-   }
-
-   public Optional<Kunde> createNewUser(final Kunde newKunde) {
-      try {
-         insertAdresse(newKunde.getAdresse());
-         Statement stm = createStatement();
-         StringBuilder sb = new StringBuilder();
-         sb.append("INSERT INTO kunde VALUES (");
-         sb.append(Integer.toString(newKunde.getKundenId())).append(", ");
-         sb.append("'").append(newKunde.getBIC()).append("', ");
-         sb.append("'").append(newKunde.getIBAN()).append("', ");
-         sb.append("'").append(newKunde.getEmail()).append("', ");
-         sb.append("'").append(newKunde.getVorname()).append("', ");
-         sb.append("'").append(newKunde.getNachname()).append("', ");
-         sb.append("'").append(newKunde.getPassword()).append("', ");
-         sb.append(Integer.toString(newKunde.getAdresse().getAdressId())).append(")");
-
-         String myInsertQuery = sb.toString();
-
-         stm.executeQuery(myInsertQuery);
-         stm.close();
-         con.commit();
-
-      } catch (SQLException e) {
-         try {
-            con.rollback();
-         } catch (SQLException se) {
-            se.printStackTrace();
-         }
-
-         System.err.println("Exception while creating a new User");
-         handleSQLException(e);
-         throw new RuntimeException(e);
-      }
-      return Optional.ofNullable(newKunde);
    }
 
    public List<Land> getAllLands() {
@@ -271,7 +239,7 @@ public final class Backend {
    }
 
    // Methode zum Erstellen von Kundenobjekten aus einem ResultSet
-   public Kunde createKunde(final ResultSet set) {
+   private Kunde createKunde(final ResultSet set) {
       try {
          // TODO: JOIN mit adresse einfügen + Adresse auslesen
 
@@ -286,8 +254,43 @@ public final class Backend {
       }
    }
 
+   public Optional<Kunde> createNewUser(final Kunde newKunde) {
+      try {
+         insertAdresse(newKunde.getAdresse());
+         Statement stm = createStatement();
+         StringBuilder sb = new StringBuilder();
+         sb.append("INSERT INTO kunde VALUES (");
+         sb.append(Integer.toString(newKunde.getKundenId())).append(", ");
+         sb.append("'").append(newKunde.getBIC()).append("', ");
+         sb.append("'").append(newKunde.getIBAN()).append("', ");
+         sb.append("'").append(newKunde.getEmail()).append("', ");
+         sb.append("'").append(newKunde.getVorname()).append("', ");
+         sb.append("'").append(newKunde.getNachname()).append("', ");
+         sb.append("'").append(newKunde.getPassword()).append("', ");
+         sb.append(Integer.toString(newKunde.getAdresse().getAdressId())).append(")");
+
+         String myInsertQuery = sb.toString();
+
+         stm.executeQuery(myInsertQuery);
+         stm.close();
+
+         return login(newKunde.getEmail(), newKunde.getPassword());
+
+      } catch (SQLException e) {
+         try {
+            con.rollback();
+         } catch (SQLException se) {
+            se.printStackTrace();
+         }
+
+         System.err.println("Exception while creating a new User");
+         handleSQLException(e);
+         throw new RuntimeException(e);
+      }
+   }
+
    // Methode für den Insert einer Adresse
-   public void insertAdresse(final Adresse adr) {
+   private void insertAdresse(final Adresse adr) {
       try {
          Statement stm = createStatement();
          StringBuilder sb = new StringBuilder();
@@ -301,7 +304,7 @@ public final class Backend {
          String myInsertQuery = sb.toString();
          stm.executeQuery(myInsertQuery);
          stm.close();
-         con.commit();
+         // con.commit(); must not commit. will be commited in createNewUser
       } catch (SQLException e) {
          try {
             con.rollback();
