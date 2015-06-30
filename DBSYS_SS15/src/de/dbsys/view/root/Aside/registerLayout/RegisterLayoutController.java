@@ -86,19 +86,21 @@ public class RegisterLayoutController implements Initializable {
       String iban = trim(ibanTF.getText());
       String bic = trim(bicTF.getText());
       String strasze = trim(straszeTF.getText());
+      String ort = trim(stadtTF.getText());
+      String hausnr = trim(hausNrTF.getText());
       String plz = trim(plzTF.getText());
       Land land = landCB.getValue();
 
       if (vorname.isEmpty() || nachname.isEmpty() || email.isEmpty() || pw.isEmpty()
-            || iban.isEmpty() || bic.isEmpty() || strasze.isEmpty() || plz.isEmpty()
-            || land == null) {
+            || iban.isEmpty() || bic.isEmpty() || strasze.isEmpty() || hausnr.isEmpty()
+            || plz.isEmpty() || ort.isEmpty() || land == null) {
          Alert warn = new Alert(AlertType.WARNING);
          warn.setContentText("Alle Felder müssen gefüllt sein");
          warn.show();
          return;
       }
 
-      Adresse kundenAdresse = new Adresse(strasze, plz, land);
+      Adresse kundenAdresse = new Adresse(strasze, hausnr, ort, plz, land);
       Kunde newKunde = new Kunde(vorname, nachname, email, pw, iban, bic, kundenAdresse);
 
       Optional<Kunde> kunde = Backend.get().createNewUser(newKunde);

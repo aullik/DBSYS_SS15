@@ -173,11 +173,12 @@ public final class Backend {
    }
 
    public void evaluateBooking(final Buchung buchung, final int bewertung) {
+      // FIXME: nicht verändern, nicht gebraucht für aufgabe
       // TODO Auto-generated method stub
       // bewertung zwischen 10 und 60
    }
 
-   public Optional<Buchung> bookWohnung(final Wohnung wohnung) {
+   public Optional<Buchung> bookWohnung(final Buchung buchung) {
       // TODO Auto-generated method stub
       return null;
    }

@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.40">
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
 	<children>
 		<Button defaultButton="true" layoutX="174.0" layoutY="398.0" mnemonicParsing="false" onAction="#handleConfirmBooking" prefWidth="380.0" text="Buchung bestätigen" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="390.0" />
 		<Label layoutX="16.0" layoutY="14.0" text="Buchungsbestätigung" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
@@ -14,8 +14,8 @@
 				<Font size="16.0" />
 			</font>
 		</Label>
-		<TextArea fx:id="wohnungDetailTA" layoutX="-17.0" layoutY="89.0" prefHeight="150.0" prefWidth="380.0" promptText="Wohnungsdetails" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="50.0" />
-		<TextArea fx:id="buchungDetailTA" layoutX="10.0" layoutY="213.0" prefHeight="150.0" prefWidth="380.0" promptText="Buchungsdetails" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="213.0" />
+		<TextArea fx:id="wohnungDetailTA" editable="false" layoutX="-17.0" layoutY="89.0" prefHeight="150.0" prefWidth="380.0" promptText="Wohnungsdetails" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="50.0" />
+		<TextArea fx:id="buchungDetailTA" editable="false" layoutX="10.0" layoutY="213.0" prefHeight="150.0" prefWidth="380.0" promptText="Buchungsdetails" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="213.0" />
 		<Button cancelButton="true" layoutX="184.0" layoutY="408.0" mnemonicParsing="false" onAction="#handleReturnSelection" prefWidth="380.0" text="Zur Auswahl zurückkehren" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />
 	</children>
 </AnchorPane>

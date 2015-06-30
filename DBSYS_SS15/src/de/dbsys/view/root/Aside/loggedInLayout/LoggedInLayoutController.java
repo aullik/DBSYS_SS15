@@ -8,7 +8,6 @@ import de.dbsys.backend.Backend;
 import de.dbsys.model.Buchung;
 import de.dbsys.model.Kunde;
 import de.dbsys.model.SideContainer;
-import de.dbsys.model.Wohnung;
 import de.dbsys.view.MVCLoader;
 import de.dbsys.view.root.Aside.loginLayout.LoginLayoutLoader;
 import de.dbsys.view.root.Bside.bookingConfirmation.BookingConfirmationLoader;
@@ -83,19 +82,13 @@ public class LoggedInLayoutController implements Initializable {
 
       ResultLayoutLoader loader = (ResultLayoutLoader) container.getSideBLoader();
       ResultLayoutController controller = loader.getController();
-      Optional<Wohnung> wohnung = controller.getSelectedWohnung();
-      if (!wohnung.isPresent()) {
+      Optional<Buchung> buchung = controller.getSelectedBuchung();
+      if (!buchung.isPresent()) {
          info.show();
          return;
       }
 
-      Optional<Buchung> buchung = Backend.get().bookWohnung(wohnung.get());
-      if (!buchung.isPresent()) {
-         Alert warn = new Alert(AlertType.WARNING);
-         warn.setContentText("Buchung nicht erfolgreich");
-         warn.show();
-         return;
-      }
+      buchung.get().setKunde(kunde);
 
       container.setSideBLoader(new BookingConfirmationLoader(loader, buchung.get()));
    }

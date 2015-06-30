@@ -170,4 +170,12 @@ public class SearchLayoutController implements Initializable {
       }
    }
 
+   public LocalDate getAnreiseDatum() {
+      return anreiseDP.getValue();
+   }
+
+   public LocalDate getAbreiseDatum() {
+      return abreiseDP.getValue();
+   }
+
 }
