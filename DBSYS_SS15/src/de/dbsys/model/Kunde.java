@@ -11,9 +11,9 @@ public class Kunde {
    String password;
    Adresse adresse;
 
-   public Kunde(final String vorname, final String nachname, final String email, final String pw,
-         final String iban, final String bic, final Adresse kundenAdresse) {
-      this.kundenId = 0;
+   public Kunde(final int kudenId, final String vorname, final String nachname, final String email,
+         final String pw, final String iban, final String bic, final Adresse kundenAdresse) {
+      this.kundenId = kudenId;
       this.vorname = vorname;
       this.nachname = nachname;
       this.email = email;
@@ -21,6 +21,12 @@ public class Kunde {
       IBAN = iban;
       BIC = bic;
       adresse = kundenAdresse;
+   }
+
+   public Kunde(final String string, final String string2, final String string3,
+         final String string4, final String string5, final String string6, final Adresse adr) {
+      this(0, string, string2, string3, string4, string5, string6, adr);
+      // TODO Auto-generated constructor stub
    }
 
    public String getBIC() {

@@ -339,9 +339,9 @@ public final class Backend {
                res.getString("hausnummer"), "testort"// FIXME: add ort res.getString("ort")
                , res.getString("plz"), la);
 
-         Kunde kd = new Kunde(set.getString("vorname"), set.getString("nachname"),
-               set.getString("mailadresse"), set.getString("passwort"), set.getString("IBAN"),
-               set.getString("bic"), adr);
+         Kunde kd = new Kunde(set.getInt("kundenid"), set.getString("vorname"),
+               set.getString("nachname"), set.getString("mailadresse"), set.getString("passwort"),
+               set.getString("IBAN"), set.getString("bic"), adr);
          stm.close();
          return kd;
 
