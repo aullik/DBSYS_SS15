@@ -62,7 +62,7 @@ public final class Backend {
    }
 
    private final PreparedStatement testname = createPreparedStatement(
-         "Select * from Kunde where mailadresse = ? and passwort = ?");
+         "Select * from Kunde where mailadresse = ? and passwort = ?"); 
    // FIXME REMOVE
 
    private PreparedStatement createPreparedStatement(final String sql) {

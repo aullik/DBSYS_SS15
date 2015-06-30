@@ -8,7 +8,7 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
 	<children>
-		<Button defaultButton="true" layoutX="174.0" layoutY="398.0" mnemonicParsing="false" onAction="#handleConfirmBooking" prefWidth="380.0" text="Buchung bestätigen" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="390.0" />
+		<Button fx:id="confirmBookingBTN" defaultButton="true" layoutX="174.0" layoutY="398.0" mnemonicParsing="false" onAction="#handleConfirmBooking" prefWidth="380.0" text="Buchung bestätigen" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="390.0" />
 		<Label layoutX="16.0" layoutY="14.0" text="Buchungsbestätigung" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
 			<font>
 				<Font size="16.0" />
