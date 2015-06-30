@@ -67,7 +67,6 @@ public final class Backend {
 
    private final PreparedStatement loginQuery = createPreparedStatement(
          "Select * from Kunde where mailadresse = ? and passwort = ?");
-   // FIXME REMOVE
 
    private PreparedStatement createPreparedStatement(final String sql) {
       try {
@@ -241,7 +240,7 @@ public final class Backend {
          StringBuilder sb = new StringBuilder();
          sb.append("INSERT INTO buchung VALUES (");
          sb.append("sqBuchungsnummer.nextVal, ");
-         sb.append("to_date('").append(LocalDate.now().toString()).append("'), ");
+         sb.append("SYSDATE, ");
          sb.append("to_date('").append(buchung.getAnreiseDatum().toString()).append("'), ");
          sb.append("to_date('").append(buchung.getAbreiseDatum().toString()).append("'), ");
          sb.append("null, ");
@@ -258,12 +257,18 @@ public final class Backend {
          stm.close();
 
          Statement stm2 = createStatement();
-         String mySearchQuery = "SELECT * FROM buchung WHERE Kundenid = "
-               + buchung.getKunde().getKundenId() + "AND buchungsdatum = CURDATE()";
+         String mySearchQuery = "SELECT buchungsnummer FROM buchung WHERE Kundenid = "
+               + buchung.getKunde().getKundenId()
+               + "AND buchungsdatum = SYSDATE AND wohnungsnummer = "
+               + buchung.getWohnung().getWohnungsnummer();
 
          ResultSet rest = stm2.executeQuery(mySearchQuery);
+         if (!rest.next())
+            return Optional.empty();
+
          book = new Buchung(buchung.getAnreiseDatum(), buchung.getAbreiseDatum(),
-               buchung.getWohnung(), buchung.getKunde(), rest.getInt("buchungsnummer"));
+               buchung.getWohnung(), buchung.getKunde(), rest.getInt("buchungsnummer"),
+               LocalDate.now());
 
          stm2.close();
          con.commit();

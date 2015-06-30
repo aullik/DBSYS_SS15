@@ -22,7 +22,7 @@ public class Buchung {
    }
 
    public Buchung(final LocalDate anreiseDatum, final LocalDate abreiseDatum, final Wohnung wohnung,
-         final Kunde kunde, final int buchungsnummer) {
+         final Kunde kunde, final int buchungsnummer, final LocalDate buchungsdatum) {
       this.anreiseDatum = anreiseDatum;
       this.abreiseDatum = abreiseDatum;
       this.wohnung = wohnung;
