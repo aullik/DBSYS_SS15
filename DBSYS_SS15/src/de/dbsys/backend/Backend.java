@@ -36,7 +36,6 @@ public final class Backend {
       } catch (SQLException e) {
          throw new RuntimeException(e);
       }
-      // test();
    }
 
    private final static Backend INSTANCE = new Backend();
@@ -64,7 +63,7 @@ public final class Backend {
       }
    }
 
-   private final PreparedStatement testname = createPreparedStatement(
+   private final PreparedStatement loginQuery = createPreparedStatement(
          "Select * from Kunde where mailadresse = ? and passwort = ?");
    // FIXME REMOVE
 
@@ -78,7 +77,6 @@ public final class Backend {
 
    private Statement createStatement() {
       try {
-
          return getConnection().createStatement();
       } catch (SQLException e) {
          throw new RuntimeException(e);
@@ -86,65 +84,23 @@ public final class Backend {
    }
 
    private void handleSQLException(final SQLException e) {
+      try {
+         con.close();
+      } catch (SQLException ignore) {}
       System.err.println("SQLException: " + e.getMessage());
       System.err.println("SQLState: " + e.getSQLState());
       System.err.println("VendorError: " + e.getErrorCode());
       e.printStackTrace();
    }
 
-   private interface SQLConsumer<T> {
-
-      public void accept(T t) throws SQLException;
-
-   }
-
-   private void executeSelect(final String statement, final SQLConsumer<ResultSet> resultConsumer) {
-
-      executeStatement((s) -> {
-         ResultSet res = s.executeQuery(statement);
-         resultConsumer.accept(res);
-         System.out.println("Executed Query: " + statement);
-      } , statement);
-
-      // execute Statement throws RuntimeException if container is empty
-
-   }
-
-   private void executeUpdateInsert(final String statement) {
-      executeStatement((s) -> {
-         s.execute(statement);
-         System.out.println("Executed Query: " + statement);
-      } , statement);
-   }
-
-   private void executeStatement(final SQLConsumer<Statement> executor,
-         final String statementString) throws RuntimeException {
-      try {
-         Statement s = createStatement();
-         executor.accept(s);
-         s.close();
-      } catch (SQLException e) {
-         System.err.println("Exception while executing Query: " + statementString);
-         handleSQLException(e);
-         throw new RuntimeException(e);
-      }
-   }
-
-   // @SuppressWarnings("unused")
-   private void test() {
-      String statement = "Select 'test' from dual";
-      executeSelect(statement, res -> {
-         res.next();
-         System.out.println(res.getString(1));
-      });
-   }
-
    public Optional<Kunde> login(final String email, final String pw) {
       try {
-         testname.setString(1, email);
-         testname.setString(2, pw);
-         ResultSet res = testname.executeQuery();
+         loginQuery.setString(1, email);
+         loginQuery.setString(2, pw);
+         ResultSet res = loginQuery.executeQuery();
+         res.next();
          Kunde kd = createKunde(res);
+         res.close();
          return Optional.of(kd);
       } catch (SQLException e) {
          System.err.println("Exception while executing login-statement");
@@ -162,14 +118,14 @@ public final class Backend {
          Statement stm = createStatement();
          StringBuilder sb = new StringBuilder();
          sb.append("INSERT INTO kunde VALUES (");
-         sb.append(Integer.toString(newKunde.getKundenId()) + ", ");
-         sb.append("'" + newKunde.getBIC() + "', ");
-         sb.append("'" + newKunde.getIBAN() + "', ");
-         sb.append("'" + newKunde.getEmail() + "', ");
-         sb.append("'" + newKunde.getVorname() + "', ");
-         sb.append("'" + newKunde.getNachname() + "', ");
-         sb.append("'" + newKunde.getPassword() + "', ");
-         sb.append(Integer.toString(newKunde.getAdresse().getAdressId()) + ")");
+         sb.append(Integer.toString(newKunde.getKundenId())).append(", ");
+         sb.append("'").append(newKunde.getBIC()).append("', ");
+         sb.append("'").append(newKunde.getIBAN()).append("', ");
+         sb.append("'").append(newKunde.getEmail()).append("', ");
+         sb.append("'").append(newKunde.getVorname()).append("', ");
+         sb.append("'").append(newKunde.getNachname()).append("', ");
+         sb.append("'").append(newKunde.getPassword()).append("', ");
+         sb.append(Integer.toString(newKunde.getAdresse().getAdressId())).append(")");
 
          String myInsertQuery = sb.toString();
 
@@ -336,11 +292,11 @@ public final class Backend {
          Statement stm = createStatement();
          StringBuilder sb = new StringBuilder();
          sb.append("INSERT INTO Adresse VALUES (");
-         sb.append(Integer.toString(adr.getAdressId()) + ", ");
-         sb.append(Integer.toString(adr.getLand().getLandesId()) + ", ");
-         sb.append("'" + adr.getPLZ() + "', ");
-         sb.append("'" + adr.getStrasze() + ", ");
-         sb.append("'" + adr.getHausnummer() + ", ");
+         sb.append(Integer.toString(adr.getAdressId())).append(", ");
+         sb.append(Integer.toString(adr.getLand().getLandesId())).append(", ");
+         sb.append("'").append(adr.getPLZ()).append("', ");
+         sb.append("'").append(adr.getStrasze()).append(", ");
+         sb.append("'").append(adr.getHausnummer()).append(", ");
 
          String myInsertQuery = sb.toString();
          stm.executeQuery(myInsertQuery);
