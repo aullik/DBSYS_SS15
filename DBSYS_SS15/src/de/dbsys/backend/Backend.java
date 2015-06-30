@@ -253,10 +253,10 @@ public final class Backend {
          Statement stm = createStatement();
          StringBuilder sb = new StringBuilder();
          sb.append("INSERT INTO dbsys20.buchung VALUES (");
-         sb.append("sqBuchungsnummer.nextVal, ");
+         sb.append("dbsys20.sqBuchungsnummer.nextVal, ");
          sb.append("SYSDATE, ");
-         sb.append("to_date('").append(buchung.getAnreiseDatum().toString()).append("'), ");
-         sb.append("to_date('").append(buchung.getAbreiseDatum().toString()).append("'), ");
+         sb.append("to_date('").append(buchung.getAnreiseDatum().format(DTF)).append("'), ");
+         sb.append("to_date('").append(buchung.getAbreiseDatum().format(DTF)).append("'), ");
          sb.append("null, ");
          sb.append("null, ");
          sb.append("null, ");
@@ -266,15 +266,17 @@ public final class Backend {
          sb.append(buchung.getKunde().getKundenId()).append(")");
 
          String myInsertQuery = sb.toString();
+         System.out.println(myInsertQuery);
          stm.executeUpdate(myInsertQuery);
 
          stm.close();
 
          Statement stm2 = createStatement();
-         String mySearchQuery = "SELECT buchungsnummer FROM dbsys20.buchung WHERE Kundenid = "
-               + buchung.getKunde().getKundenId()
-               + "AND buchungsdatum = SYSDATE AND wohnungsnummer = "
-               + buchung.getWohnung().getWohnungsnummer();
+         String mySearchQuery = "Select dbsys20.sqBuchungsnummer.currval from dual";
+         // String mySearchQuery = "SELECT buchungsnummer FROM dbsys20.buchung WHERE Kundenid = "
+         // + buchung.getKunde().getKundenId()
+         // + "AND buchungsdatum = SYSDATE AND wohnungsnummer = "
+         // + buchung.getWohnung().getWohnungsnummer();
 
          ResultSet rest = stm2.executeQuery(mySearchQuery);
          if (!rest.next()) {
@@ -284,8 +286,7 @@ public final class Backend {
          }
 
          book = new Buchung(buchung.getAnreiseDatum(), buchung.getAbreiseDatum(),
-               buchung.getWohnung(), buchung.getKunde(), rest.getInt("buchungsnummer"),
-               LocalDate.now());
+               buchung.getWohnung(), buchung.getKunde(), rest.getInt(1), LocalDate.now());
 
          stm2.close();
          con.commit();
