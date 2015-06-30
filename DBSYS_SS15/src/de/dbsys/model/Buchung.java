@@ -21,6 +21,16 @@ public class Buchung {
       this.buchungsnummer = 0;
    }
 
+   public Buchung(final LocalDate anreiseDatum, final LocalDate abreiseDatum, final Wohnung wohnung,
+         final Kunde kunde, final int buchungsnummer) {
+      this.anreiseDatum = anreiseDatum;
+      this.abreiseDatum = abreiseDatum;
+      this.wohnung = wohnung;
+      this.buchungsnummer = buchungsnummer;
+      this.kunde = kunde;
+      this.buchungsdatum = buchungsdatum;
+   }
+
    public LocalDate getBuchungsdatum() {
       return buchungsdatum;
    }

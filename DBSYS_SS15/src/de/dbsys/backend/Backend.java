@@ -2,12 +2,14 @@ package de.dbsys.backend;
 
 import java.security.Security;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -310,8 +312,51 @@ public final class Backend {
    }
 
    public Optional<Buchung> bookWohnung(final Buchung buchung) {
-      // TODO Auto-generated method stub
-      return Optional.empty();
+      Buchung book;
+      try {
+         Statement stm = createStatement();
+         StringBuilder sb = new StringBuilder();
+         sb.append("INSERT INTO buchung VALUES (");
+         sb.append("sqBuchungsnummer.nextVal, ");
+         sb.append("to_date('").append(LocalDate.now().toString()).append("'), ");
+         sb.append("to_date('").append(buchung.getAnreiseDatum().toString()).append("'), ");
+         sb.append("to_date('").append(buchung.getAbreiseDatum().toString()).append("'), ");
+         sb.append("null, ");
+         sb.append("null, ");
+         sb.append("null, ");
+         sb.append("null, ");
+         sb.append("null, ");
+         sb.append(buchung.getWohnung().getWohnungsnummer()).append(", ");
+         sb.append(buchung.getKunde().getKundenId());
+
+         String myInsertQuery = sb.toString();
+         stm.executeUpdate(myInsertQuery);
+
+         stm.close();
+
+         Statement stm2 = createStatement();
+         String mySearchQuery = "SELECT * FROM buchung WHERE Kundenid = "
+               + buchung.getKunde().getKundenId() + "AND buchungsdatum = CURDATE()";
+
+         ResultSet rest = stm2.executeQuery(mySearchQuery);
+         book = new Buchung(buchung.getAnreiseDatum(), buchung.getAbreiseDatum(),
+               buchung.getWohnung(), buchung.getKunde(), rest.getInt("buchungsnummer"));
+
+         stm2.close();
+         con.commit();
+         return Optional.of(book);
+
+      } catch (SQLException e) {
+         try {
+            con.rollback();
+         } catch (SQLException se) {
+            se.printStackTrace();
+         }
+         System.err.println("Exception while booking an apartement");
+         handleSQLException(e);
+         throw new RuntimeException(e);
+      }
+
    }
 
    // Methode zum Erstellen von Kundenobjekten aus einem ResultSet
@@ -398,5 +443,9 @@ public final class Backend {
       }
 
       return apt;
+   }
+
+   private LocalDate toLocalDate(final Date date) {
+      return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
    }
 }
