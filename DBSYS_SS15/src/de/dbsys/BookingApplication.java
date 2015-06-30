@@ -5,10 +5,10 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 
 
-public class MainClass_ChangeName extends Application {
+public class BookingApplication extends Application {
 
    public static void main(final String[] args) {
-      launch(MainClass_ChangeName.class, args);
+      launch(BookingApplication.class, args);
    }
 
    @Override
