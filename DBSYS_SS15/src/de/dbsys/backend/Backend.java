@@ -18,7 +18,6 @@ import java.util.Optional;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 import de.dbsys.model.Adresse;
-import de.dbsys.model.Attraktion;
 import de.dbsys.model.Ausstattung;
 import de.dbsys.model.Buchung;
 import de.dbsys.model.Kunde;
@@ -222,24 +221,22 @@ public final class Backend {
          ResultSet rset = stm.executeQuery(mySearchQuery);
 
          HashMap<Integer, List<Ausstattung>> ausMap = new HashMap<>();
-         HashMap<Integer, List<Attraktion>> atMap = new HashMap<>();
+         // HashMap<Integer, List<Attraktion>> atMap = new HashMap<>();
 
          while (rset.next()) {
             Wohnung tmp = getWohnung(rset);
             if (!ausMap.containsKey(tmp.getWohnungsnummer())) {
                list.add(tmp);
                ausMap.put(tmp.getWohnungsnummer(), tmp.getAusgestattet_mit());
-               atMap.put(tmp.getWohnungsnummer(), tmp.getAttraktionen());
-            } else {
+               // atMap.put(tmp.getWohnungsnummer(), tmp.getAttraktionen());
+            } else
                ausMap.get(tmp.getWohnungsnummer()).add(tmp.getAusgestattet_mit().get(0));
-               atMap.get(tmp.getWohnungsnummer()).add(tmp.getAttraktionen().get(0));
-            }
+            // atMap.get(tmp.getWohnungsnummer()).add(tmp.getAttraktionen().get(0));
          }
 
-         for (Wohnung w : list) {
-            w.setAttraktionen(atMap.get(w.getWohnungsnummer()));
+         for (Wohnung w : list)
+            // w.setAttraktionen(atMap.get(w.getWohnungsnummer()));
             w.setAusgestattet_mit(ausMap.get(w.getWohnungsnummer()));
-         }
 
          stm.close();
          con.commit();
