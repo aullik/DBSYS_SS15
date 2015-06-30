@@ -436,10 +436,10 @@ public final class Backend {
 
       Wohnung apt = new Wohnung();
       try {
-         Attraktion at = new Attraktion();
-         at.setBeschreibung(set.getString("beschreibung"));
-         at.setEntfernung(set.getInt("distanz"));
-         at.setName(set.getString("attraktionsname"));
+         // Attraktion at = new Attraktion();
+         // at.setBeschreibung(set.getString("beschreibung"));
+         // at.setEntfernung(set.getInt("distanz"));
+         // at.setName(set.getString("attraktionsname"));
 
          Land la = new Land(set.getInt("landesid"), set.getString("landesname"));
          Adresse adr = new Adresse(set.getInt("adressid"), set.getString("strasze"),
@@ -450,7 +450,7 @@ public final class Backend {
 
          apt.setAusgestattet_mit(new LinkedList<>());
          apt.setAttraktionen(new LinkedList<>());
-         apt.getAttraktionen().add(at);
+         // apt.getAttraktionen().add(at);
          apt.getAusgestattet_mit().add(aus);
 
          apt.setGroezse(set.getInt("groesze"));
