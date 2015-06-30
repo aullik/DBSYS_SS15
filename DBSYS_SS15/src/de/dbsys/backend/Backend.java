@@ -225,13 +225,12 @@ public final class Backend {
    }
 
    public Optional<Buchung> getLastCompletedBooking(final Kunde kunde) {
-      // FIXME: nicht verändern, nicht gebraucht für aufgabe
+      // nicht verändern, nicht gebraucht für aufgabe
       return Optional.empty();
    }
 
    public void evaluateBooking(final Buchung buchung, final int bewertung) {
-      // FIXME: nicht verändern, nicht gebraucht für aufgabe
-      // TODO Auto-generated method stub
+      // nicht verändern, nicht gebraucht für aufgabe
       // bewertung zwischen 10 und 60
    }
 
