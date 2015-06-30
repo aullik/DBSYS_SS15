@@ -250,7 +250,7 @@ public final class Backend {
          handleSQLException(e);
          throw new RuntimeException(e);
       }
-      return new LinkedList<>();
+      return list;
    }
 
    public Optional<Buchung> getLastCompletedBooking(final Kunde kunde) {
