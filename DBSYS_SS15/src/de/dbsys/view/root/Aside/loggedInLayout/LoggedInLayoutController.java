@@ -73,7 +73,7 @@ public class LoggedInLayoutController implements Initializable {
       void handleBooking(final ActionEvent event) {
 
       Alert info = new Alert(AlertType.INFORMATION);
-      info.setContentText("keine Wohnung ausgew‰hlt!");
+      info.setContentText("keine Wohnung ausgew√§hlt!");
 
       if (!(container.getSideBLoader() instanceof ResultLayoutLoader)) {
          info.show();

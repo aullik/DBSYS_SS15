@@ -95,7 +95,7 @@ public class RegisterLayoutController implements Initializable {
             || iban.isEmpty() || bic.isEmpty() || strasze.isEmpty() || hausnr.isEmpty()
             || plz.isEmpty() || ort.isEmpty() || land == null) {
          Alert warn = new Alert(AlertType.WARNING);
-         warn.setContentText("Alle Felder müssen gefüllt sein");
+         warn.setContentText("Alle Felder mÃ¼ssen gefÃ¼llt sein");
          warn.show();
          return;
       }

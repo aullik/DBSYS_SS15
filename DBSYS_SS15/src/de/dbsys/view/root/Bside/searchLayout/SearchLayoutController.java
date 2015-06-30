@@ -107,7 +107,7 @@ public class SearchLayoutController implements Initializable {
       if (anreise == null || abreise == null || zimmer == 0 || land == null) {
          Alert warn = new Alert(AlertType.WARNING);
          warn.setContentText(
-               "Weder Anreise Datum, noch Abreise Datum, noch zimmer, noch Land d�rfen leer sein!");
+               "Weder Anreise Datum, noch Abreise Datum, noch zimmer, noch Land dürfen leer sein!");
          warn.show();
          return;
       }

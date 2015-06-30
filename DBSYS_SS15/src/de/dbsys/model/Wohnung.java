@@ -15,88 +15,88 @@ public class Wohnung {
    List<Attraktion> attraktionen;
 
    public Adresse getAdresse() {
-         return adresse;
-      }
+      return adresse;
+   }
 
    public int getAnzahlZimmer() {
-         return anzahlZimmer;
-      }
+      return anzahlZimmer;
+   }
 
    public List<Attraktion> getAttraktionen() {
-         return attraktionen;
-      }
+      return attraktionen;
+   }
 
    public List<Ausstattung> getAusgestattet_mit() {
-         return ausgestattet_mit;
-      }
+      return ausgestattet_mit;
+   }
 
    public int getGroezse() {
-         return groezse;
-      }
+      return groezse;
+   }
 
    public String getName() {
-         return name;
-      }
+      return name;
+   }
 
    public int getPreisProTag() {
-         return preisProTag;
-      }
+      return preisProTag;
+   }
 
    public String getWohnungsdetails() {
-         String format = "" + "Name: %s" + "\nPreis pro Tag: %s €" + "\nAnz. Zimmer: %s"
-               + "\nGröße: %s m²" + "\nAdresse:\n %s\n";
+      String format = "" + "Name: %s" + "\nPreis pro Tag: %s â‚¬" + "\nAnz. Zimmer: %s"
+            + "\nGrÃ¶ÃŸe: %s mÂ²" + "\nAdresse:\n %s\n";
 
-         StringBuilder sb = new StringBuilder();
-         sb.append(String.format(format, getName(), getPreisProTag(), getAnzahlZimmer(), getGroezse(),
-               getAdresse().toString()));
+      StringBuilder sb = new StringBuilder();
+      sb.append(String.format(format, getName(), getPreisProTag(), getAnzahlZimmer(), getGroezse(),
+            getAdresse().toString()));
 
-         if (!getAusgestattet_mit().isEmpty())
-            sb.append("Ausstattungen: \n");
-         for (Ausstattung a : getAusgestattet_mit())
-            sb.append(a.getBezeichung()).append('\n');
+      if (!getAusgestattet_mit().isEmpty())
+         sb.append("Ausstattungen: \n");
+      for (Ausstattung a : getAusgestattet_mit())
+         sb.append(a.getBezeichung()).append('\n');
 
-         if (!getAttraktionen().isEmpty())
-            sb.append("Attraktionen: \n");
-         for (Attraktion a : getAttraktionen())
-            sb.append(a.getName()).append(" in ").append(a.getEntfernung()).append(" km\n");
+      if (!getAttraktionen().isEmpty())
+         sb.append("Attraktionen: \n");
+      for (Attraktion a : getAttraktionen())
+         sb.append(a.getName()).append(" in ").append(a.getEntfernung()).append(" km\n");
 
-         return sb.toString();
-      }
+      return sb.toString();
+   }
 
    public int getWohnungsnummer() {
-         return wohnungsnummer;
-      }
+      return wohnungsnummer;
+   }
 
    public void setAdresse(final Adresse adresse) {
-         this.adresse = adresse;
-      }
+      this.adresse = adresse;
+   }
 
    public void setAnzahlZimmer(final int anzahlZimmer) {
-         this.anzahlZimmer = anzahlZimmer;
-      }
+      this.anzahlZimmer = anzahlZimmer;
+   }
 
    public void setAttraktionen(final List<Attraktion> attraktionen) {
-         this.attraktionen = attraktionen;
-      }
+      this.attraktionen = attraktionen;
+   }
 
    public void setAusgestattet_mit(final List<Ausstattung> ausgestattet_mit) {
-         this.ausgestattet_mit = ausgestattet_mit;
-      }
+      this.ausgestattet_mit = ausgestattet_mit;
+   }
 
    public void setGroezse(final int groezse) {
-         this.groezse = groezse;
-      }
+      this.groezse = groezse;
+   }
 
    public void setName(final String name) {
-         this.name = name;
-      }
+      this.name = name;
+   }
 
    public void setPreisProTag(final int preisProTag) {
-         this.preisProTag = preisProTag;
-      }
+      this.preisProTag = preisProTag;
+   }
 
    public void setWohnungsnummer(final int wohnungsnummer) {
-         this.wohnungsnummer = wohnungsnummer;
-      }
+      this.wohnungsnummer = wohnungsnummer;
+   }
 
 }

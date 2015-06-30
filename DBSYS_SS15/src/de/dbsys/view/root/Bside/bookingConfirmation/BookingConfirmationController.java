@@ -63,7 +63,7 @@ public class BookingConfirmationController implements Initializable {
       sb.append(newLine);
       int buchungsnummer = buchung.getBuchungsnummer();
       if (buchungsnummer == 0)
-         sb.append("Bitte best�tigen Sie Ihre Buchung");
+         sb.append("Bitte bestätigen Sie Ihre Buchung");
       else
          sb.append("Buchungsnummer: ").append(buchungsnummer);
 

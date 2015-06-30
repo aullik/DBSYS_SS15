@@ -40,7 +40,7 @@ public class LoginLayoutController implements Initializable {
       String pw = passwortTF.getText().trim();
       if (email.isEmpty() || pw.isEmpty()) {
          Alert warn = new Alert(AlertType.WARNING);
-         warn.setContentText("Weder Email noch Password dürfen leer sein!");
+         warn.setContentText("Weder Email noch Password dÃ¼rfen leer sein!");
          warn.show();
          return;
       }
