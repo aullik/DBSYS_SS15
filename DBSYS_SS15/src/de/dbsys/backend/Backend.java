@@ -440,7 +440,8 @@ public final class Backend {
 
          Land la = new Land(set.getInt("landesid"), set.getString("landesname"));
          Adresse adr = new Adresse(set.getInt("adressid"), set.getString("strasze"),
-               set.getString("hausnummer"), set.getString("ort"), set.getString("plz"), la);
+               set.getString("hausnummer"), "testort", // FIXME set.getString("ort"),
+               set.getString("plz"), la);
          Ausstattung aus = new Ausstattung(set.getString("bezeichnung"));
 
          apt.setAnzahlZimmer(set.getInt("anzahlzimmer"));
