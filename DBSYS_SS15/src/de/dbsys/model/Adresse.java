@@ -23,6 +23,43 @@ public class Adresse {
       return land;
    }
 
+   public int getAdressId() {
+      return adressId;
+   }
+
+   public void setAdressId(final int adressId) {
+      this.adressId = adressId;
+   }
+
+   public void setLand(final Land land) {
+      this.land = land;
+   }
+
+   public String getPLZ() {
+      return PLZ;
+   }
+
+   public void setPLZ(final String pLZ) {
+      PLZ = pLZ;
+   }
+
+   public String getStrasze() {
+      return strasze;
+   }
+
+   public void setStrasze(final String strasze) {
+      this.strasze = strasze;
+   }
+
+   public String getHausnummer() {
+      return hausnummer;
+   }
+
+   public void setHausnummer(final String hausnummer) {
+      this.hausnummer = hausnummer;
+
+   }
+
    @Override
    public String toString() {
       return strasze + " " + hausnummer + "\n" + PLZ + " " + ort + "\n" + land.getLandesname();

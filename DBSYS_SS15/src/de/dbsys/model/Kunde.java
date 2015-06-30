@@ -88,6 +88,7 @@ public class Kunde {
 
    public int getKundenId() {
       return kundenId;
+
    }
 
 }
