@@ -41,7 +41,5 @@ public class RootLayoutController implements Initializable {
       container.setSideALoader(new LoginLayoutLoader());
       container.setSideBLoader(new SearchLayoutLoader());
 
-      // Backend.get(); // FIXME REMOVE
-
    }
 }
