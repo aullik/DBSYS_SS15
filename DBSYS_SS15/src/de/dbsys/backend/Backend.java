@@ -107,7 +107,7 @@ public final class Backend {
 
          Kunde kd = createKunde(res);
          res.close();
-         return Optional.of(kd);
+         return Optional.ofNullable(kd);
       } catch (SQLException e) {
          System.err.println("Exception while executing login-statement");
          handleSQLException(e);
@@ -266,7 +266,6 @@ public final class Backend {
 
          ResultSet rest = stm2.executeQuery(mySearchQuery);
          if (!rest.next()) {
-
             stm2.close();
             con.commit();
             return Optional.empty();
@@ -276,6 +275,8 @@ public final class Backend {
                buchung.getWohnung(), buchung.getKunde(), rest.getInt("buchungsnummer"),
                LocalDate.now());
 
+         stm2.close();
+         con.commit();
          return Optional.of(book);
 
       } catch (SQLException e) {
