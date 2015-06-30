@@ -2,14 +2,12 @@ package de.dbsys.backend;
 
 import java.security.Security;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -427,7 +425,7 @@ public final class Backend {
       return apt;
    }
 
-   private LocalDate toLocalDate(final Date date) {
-      return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-   }
+   // private LocalDate toLocalDate(final Date date) {
+   // return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+   // }
 }
