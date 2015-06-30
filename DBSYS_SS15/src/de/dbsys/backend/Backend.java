@@ -285,12 +285,23 @@ public final class Backend {
    // Methode zum Erstellen von Kundenobjekten aus einem ResultSet
    private Kunde createKunde(final ResultSet set) {
       try {
-         // TODO: JOIN mit adresse einfügen + Adresse auslesen
+         Statement stm = createStatement();
+         String mySearchQuery = "SELECT * FROM adresse JOIN land ON adresse.landesid = land.landesid WHERE kundenid = "
+               + set.getInt("kundenid");
+
+         ResultSet res = stm.executeQuery(mySearchQuery);
+
+         Land la = new Land(res.getInt("landesid"), res.getString("landesname"));
+
+         Adresse adr = new Adresse(res.getString("strasze"), res.getString("hausnummer"),
+               res.getString("ort"), res.getString("plz"), la);
 
          Kunde kd = new Kunde(set.getString("vorname"), set.getString("nachname"),
                set.getString("mailadresse"), set.getString("passwort"), set.getString("IBAN"),
-               set.getString("bic"), null);
+               set.getString("bic"), adr);
+         stm.close();
          return kd;
+
       } catch (SQLException e) {
          System.err.println("Exception while creating 'kunde' from ResultSet");
          handleSQLException(e);
