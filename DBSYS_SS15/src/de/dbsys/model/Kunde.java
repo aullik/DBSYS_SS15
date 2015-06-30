@@ -11,13 +11,6 @@ public class Kunde {
    String password;
    Adresse adresse;
 
-   public Kunde() {
-      this.kundenId = 0;
-      this.vorname = "Nicolas";
-      this.nachname = "Wehrle";
-      // FIXME REMOVE
-   }
-
    public Kunde(final String vorname, final String nachname, final String email, final String pw,
          final String iban, final String bic, final Adresse kundenAdresse) {
       this.kundenId = 0;
