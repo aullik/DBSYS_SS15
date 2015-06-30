@@ -63,7 +63,7 @@ public class BookingConfirmationController implements Initializable {
       sb.append(newLine);
       int buchungsnummer = buchung.getBuchungsnummer();
       if (buchungsnummer == 0)
-         sb.append("Bitte bestätigen Sie Ihre Buchung");
+         sb.append("Bitte bestï¿½tigen Sie Ihre Buchung");
       else
          sb.append("Buchungsnummer: ").append(buchungsnummer);
 
@@ -83,8 +83,6 @@ public class BookingConfirmationController implements Initializable {
 
       confirmBookingBTN.setDisable(true);
       handleShowBookingdetails(buchung.get());
-
-      // container.setSideBLoader(new SearchLayoutLoader());
    }
 
    @FXML
