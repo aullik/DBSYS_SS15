@@ -369,7 +369,8 @@ public final class Backend {
          at.setName(set.getString("attraktionsname"));
 
          Land la = new Land(set.getInt("landesid"), set.getString("landesname"));
-         Adresse adr = new Adresse(set.getString("strasze"), set.getString("plz"), la);
+         Adresse adr = new Adresse(set.getString("strasze"), set.getString("hausnummer"),
+               set.getString("ort"), set.getString("plz"), la);
          Ausstattung aus = new Ausstattung(set.getString("bezeichnung"));
 
          apt.setAnzahlZimmer(set.getInt("anzahlzimmer"));
