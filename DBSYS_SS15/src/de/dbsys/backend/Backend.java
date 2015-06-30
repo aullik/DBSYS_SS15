@@ -260,7 +260,7 @@ public final class Backend {
          Statement stm = createStatement();
          StringBuilder sb = new StringBuilder();
          sb.append("INSERT INTO kunde VALUES (");
-         sb.append(Integer.toString(newKunde.getKundenId())).append(", ");
+         sb.append("sqKundenId.nextval").append(", ");
          sb.append("'").append(newKunde.getBIC()).append("', ");
          sb.append("'").append(newKunde.getIBAN()).append("', ");
          sb.append("'").append(newKunde.getEmail()).append("', ");
@@ -295,7 +295,7 @@ public final class Backend {
          Statement stm = createStatement();
          StringBuilder sb = new StringBuilder();
          sb.append("INSERT INTO Adresse VALUES (");
-         sb.append(Integer.toString(adr.getAdressId())).append(", ");
+         sb.append("SQAdressId.nextval").append(", ");
          sb.append(Integer.toString(adr.getLand().getLandesId())).append(", ");
          sb.append("'").append(adr.getPLZ()).append("', ");
          sb.append("'").append(adr.getStrasze()).append(", ");
