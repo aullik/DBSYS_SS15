@@ -182,6 +182,7 @@ public final class Backend {
       try {
          Statement stm = createStatement();
          StringBuilder sb = new StringBuilder();
+         /*
          sb.append(
                "SELECT * --f1.wohnungsnummer FROM dbsys20.Ferienwohnung f1 JOIN dbsys20.adresse a1 ON f1.adressid = a1.adressid "
                      + "JOIN dbsys20.land l1 ON l1.landesid = a1.landesid JOIN dbsys20.ausgestattetmit am1 ON f1.wohnungsnummer = am1.wohnungsnummer "
@@ -192,6 +193,24 @@ public final class Backend {
             sb.append("AND am1.bezeichnung = '").append(aus.getBezeichung()).append("'");
          sb.append("AND b1.abreisedatum > to_date('").append(abreise.toString()).append("')");
          sb.append("AND b1.anreisedatum < to_date('").append(anreise.toString()).append("')");
+         */
+         sb.append(
+               "SELECT * FROM dbsys20.Ferienwohnung f JOIN dbsys20.adresse a ON f.adressid = a.adressid JOIN dbsys20.land l ON l.landesid = a.landesid "
+                     + "JOIN dbsys20.ausgestattetmit am ON f.wohnungsnummer = am.wohnungsnummer LEFT JOIN dbsys20.buchung b ON f.wohnungsnummer     = b.wohnungsnummer ");
+         sb.append("WHERE l.landesname = '").append(land.getLandesname()).append("' ");
+         for (Ausstattung aus : ausstattungen)
+            sb.append("AND am.bezeichnung = '").append(aus.getBezeichung()).append("' ");
+         sb.append(
+               "AND f.wohnungsnummer Not IN ( SELECT f1.wohnungsnummer FROM dbsys20.Ferienwohnung f1 JOIN dbsys20.adresse a1 ON f1.adressid = a1.adressid "
+                     + "JOIN dbsys20.land l1 ON l1.landesid = a1.landesid JOIN dbsys20.ausgestattetmit am1 ON f1.wohnungsnummer = am1.wohnungsnummer "
+                     + "LEFT JOIN dbsys20.Buchung b1 ON f1.wohnungsnummer     = b1.wohnungsnummer ");
+
+         sb.append("WHERE l1.landesname = '").append(land.getLandesname()).append("' ");
+         for (Ausstattung aus : ausstattungen)
+            sb.append("AND am1.bezeichnung = '").append(aus.getBezeichung()).append("' ");
+         sb.append("AND b1.abreisedatum > to_date('").append(anreise.toString()).append("') ");
+         sb.append("AND b1.anreisedatum < to_date('").append(abreise.toString()).append("') ");
+         sb.append(");");
 
          String mySearchQuery = sb.toString();
          ResultSet rset = stm.executeQuery(mySearchQuery);
